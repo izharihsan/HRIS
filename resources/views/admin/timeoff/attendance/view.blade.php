@@ -3,45 +3,49 @@
 @section('content')
     <!-- DataTable with Buttons -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
+        <div class="card p-3">
+            <h3>Employee Attendances</h3>
             <div class="card-datatable table-responsive pt-0">
                 <table class="datatables-basic table">
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <th>ID</th>
                             <th>Name</th>
-                            <th>Date</th>
-                            <th>Clock In</th>
-                            <th>Location</th>
-                            <th>Clock Out</th>
+                            <th>Name</th>
                             <th>Status</th>
+                            <th>Timestamp</th>
                             <th>Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>John Doe</td>
-                            <td>2021-10-01</td>
-                            <td>08:00</td>
-                            <td>Office</td>
-                            <td>17:00</td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-new-record">Detail</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jane Doe</td>
-                            <td>2021-10-01</td>
-                            <td>08:00</td>
-                            <td>Office</td>
-                            <td>17:00</td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-new-record">Detail</button>
-                            </td>
-                        </tr>
+                        @foreach ($absences as $attendance)
+                            <tr>
+                                <td>{{ $attendance->id }}</td>
+                                <td>{{ $attendance->user->name }}</td>
+                                <td>
+                                    @if ($attendance->type == 'clock_in')
+                                        <span>Clock In</span>
+                                    @elseif ($attendance->type == 'forgot_clock_in')
+                                        <span>Forgot Clock In</span>
+                                    @elseif ($attendance->type == 'clock_out')
+                                        <span>Clock Out</span>
+                                    @else
+                                        <span>Forgot Clock Out</span>
+                                    @endif
+
+                                    <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">
+                                        {{ $attendance->late ? 'Late' : 'Present' }}
+                                    </span>
+                                </td>
+                                <td>{{ $attendance->timestamp }}</td>
+                                {{-- <td>{{ $attendance->created_at }}</td> --}}
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-new-record">Detail</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>

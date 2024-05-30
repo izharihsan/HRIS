@@ -99,14 +99,19 @@
                         </a>
 
                         <ul class="menu-sub">
-                            <li class="menu-item {{ $title == 'Attendance' ? 'active' : '' }}">
-                                <a href="{{ route('attendance') }}" class="menu-link">
-                                    <div data-i18n="Attendances">Attendances</div>
+                            <li class="menu-item">
+                                <a href="layouts-content-navbar.html" class="menu-link">
+                                    <div data-i18n="Shift">Shift</div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="layouts-content-navbar.html" class="menu-link">
                                     <div data-i18n="Schedule">Schedule</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ $title == 'Attendance' ? 'active' : '' }}">
+                                <a href="{{ route('attendance') }}" class="menu-link">
+                                    <div data-i18n="Attendances">Attendances</div>
                                 </a>
                             </li>
                             <li class="menu-item">

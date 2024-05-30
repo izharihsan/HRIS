@@ -12,6 +12,15 @@ class AuthCtrl extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (auth()->attempt($credentials)) {
+            $roles = [1, 2, 3, 4, 7, 8, 9];
+
+            if (!in_array(auth()->user()->role_id, $roles)) {
+                auth()->logout();
+                return back()->withErrors([
+                    'email' => 'Access denied.',
+                ]);
+            }
+
             $request->session()->regenerate();
             return redirect()->route('dashboard');
         }

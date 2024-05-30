@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\admin\AttendanceController;
+use App\Http\Controllers\AttendanceController as ControllersAttendanceController;
 use App\Http\Controllers\AuthCtrl;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,6 @@ Route::post('/login', [AuthCtrl::class, 'login'])->name('login_process');
 Route::middleware(['auth'])->group(function () {
     // TIME OFF
     Route::group(['prefix' => 'timeoff'], function () {
-        Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
+        Route::get('/attendance', [ControllersAttendanceController::class, 'index'])->name('attendance');
     });
 });
