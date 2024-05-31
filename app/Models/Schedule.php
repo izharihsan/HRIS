@@ -11,4 +11,15 @@ class Schedule extends Model
 
     protected $guarded = [];
     protected $table = 'schedules';
+    public $timestamps = false;
+
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class, 'shift_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

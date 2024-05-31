@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('assets') }}/"
+<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('storage') }}/assets/"
     data-template="vertical-menu-template">
 
 <head>
@@ -12,7 +12,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets') }}/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('storage') }}/assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,35 +20,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&ampdisplay=swap" rel="stylesheet" />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/fonts/flag-icons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/node-waves/node-waves.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/apex-charts/apex-charts.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/swiper/swiper.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/libs/swiper/swiper.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
 
     <!-- Page CSS -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/css/pages/cards-advance.css" />
+    <link rel="stylesheet" href="{{ asset('storage') }}/assets/vendor/css/pages/cards-advance.css" />
 
     <!-- Helpers -->
-    <script src="{{ asset('assets') }}/vendor/js/helpers.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="{{ asset('assets') }}/vendor/js/template-customizer.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('assets') }}/js/config.js"></script>
+    <script src="{{ asset('storage') }}/assets/js/config.js"></script>
 </head>
 
 <body>
@@ -92,20 +92,20 @@
                     </li>
 
                     <!-- Layouts -->
-                    <li class="menu-item {{ $title == 'Attendance' || $title == 'Schedule' || $title == 'Cuti' || $title == 'Izin' || $title == 'Sakit' ? 'active open' : '' }}">
+                    <li class="menu-item {{ $title == 'Attendance' || $title == 'Schedule' || $title == 'Cuti' || $title == 'Izin' || $title == 'Sakit' || $title == 'Shifts' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons ti ti-clock"></i>
                             <div data-i18n="Time Management">Time Management</div>
                         </a>
 
                         <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="layouts-content-navbar.html" class="menu-link">
+                            <li class="menu-item {{ $title == 'Shifts' ? 'active' : '' }}">
+                                <a href="{{ route('shifts') }}" class="menu-link">
                                     <div data-i18n="Shift">Shift</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="layouts-content-navbar.html" class="menu-link">
+                            <li class="menu-item {{ $title == 'Schedule' ? 'active' : '' }}">
+                                <a href="{{ route('schedules') }}" class="menu-link">
                                     <div data-i18n="Schedule">Schedule</div>
                                 </a>
                             </li>
@@ -114,17 +114,17 @@
                                     <div data-i18n="Attendances">Attendances</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ $title == 'Cuti' ? 'active' : '' }}">
                                 <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
                                     <div data-i18n="Cuti">Cuti</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ $title == 'Izin' ? 'active' : '' }}">
                                 <a href="../horizontal-menu-template" class="menu-link" target="_blank">
                                     <div data-i18n="Izin">Izin</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ $title == 'Sakit' ? 'active' : '' }}">
                                 <a href="layouts-without-menu.html" class="menu-link">
                                     <div data-i18n="Sakit">Sakit</div>
                                 </a>
@@ -243,7 +243,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('assets') }}/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                                        <img src="{{ asset('storage') }}/assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -252,7 +252,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ asset('assets') }}/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                                                        <img src="{{ asset('storage') }}/assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -345,37 +345,37 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
-    <script src="{{ asset('assets') }}/vendor/libs/jquery/jquery.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/popper/popper.js"></script>
-    <script src="{{ asset('assets') }}/vendor/js/bootstrap.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/node-waves/node-waves.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/hammer/hammer.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/i18n/i18n.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="{{ asset('assets') }}/vendor/js/menu.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/popper/popper.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/js/bootstrap.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/js/menu.js"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{ asset('assets') }}/vendor/libs/apex-charts/apexcharts.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/swiper/swiper.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/swiper/swiper.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     <!-- Flat Picker -->
-    <script src="{{ asset('assets') }}/vendor/libs/moment/moment.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/moment/moment.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <!-- Form Validation -->
-    <script src="{{ asset('assets') }}/vendor/libs/@form-validation/popular.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/@form-validation/bootstrap5.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/@form-validation/auto-focus.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/@form-validation/popular.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/@form-validation/bootstrap5.js"></script>
+    <script src="{{ asset('storage') }}/assets/vendor/libs/@form-validation/auto-focus.js"></script>
 
     <!-- Main JS -->
-    <script src="{{ asset('assets') }}/js/main.js"></script>
+    <script src="{{ asset('storage') }}/assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="{{ asset('assets') }}/js/dashboards-analytics.js"></script>
+    <script src="{{ asset('storage') }}/assets/js/dashboards-analytics.js"></script>
     <!-- Page JS -->
-    <script src="{{ asset('assets') }}/js/tables-datatables-basic.js"></script>
+    <script src="{{ asset('storage') }}/assets/js/tables-datatables-basic.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\admin\AttendanceController;
+use App\Http\Controllers\admin\ScheduleCtrl;
+use App\Http\Controllers\admin\ShiftCtrl;
 use App\Http\Controllers\AttendanceController as ControllersAttendanceController;
 use App\Http\Controllers\AuthCtrl;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +29,23 @@ Route::get('/', function () {
 Route::post('/login', [AuthCtrl::class, 'login'])->name('login_process');
 
 Route::middleware(['auth'])->group(function () {
+
     // TIME OFF
     Route::group(['prefix' => 'timeoff'], function () {
         Route::get('/attendance', [ControllersAttendanceController::class, 'index'])->name('attendance');
+
+        // SHIFT
+        Route::get('/shifts', [ShiftCtrl::class, 'index'])->name('shifts');
+
+        // SCHEDULE
+        Route::get('/schedules', [ScheduleCtrl::class, 'index'])->name('schedules');
     });
 });
+
+// Route::get('/test-insert', function () {
+//     Schedule::create([
+//         'user_id' => 4,
+//         'shift_id' => 2,
+//         'date' => '2024-05-31'
+//     ]);
+// });
