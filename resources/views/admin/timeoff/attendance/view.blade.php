@@ -41,7 +41,7 @@
                                 <td>{{ $attendance->timestamp }}</td>
                                 {{-- <td>{{ $attendance->created_at }}</td> --}}
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-new-record">Detail</button>
+                                    <a href="{{ route('attendance.detail', $attendance->id) }}" class="btn btn-sm btn-outline-primary">Detail</a>
                                 </td>
                             </tr>
                         @endforeach

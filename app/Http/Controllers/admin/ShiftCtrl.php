@@ -29,7 +29,7 @@ class ShiftCtrl extends Controller
 
         Shift::create($request->all());
 
-        return redirect()->route('shift.index')->with('success', 'Shift created successfully.');
+        return redirect()->back()->with('success', 'Shift created successfully.');
     }
 
     public function edit($id)
@@ -48,13 +48,13 @@ class ShiftCtrl extends Controller
 
         Shift::find($id)->update($request->all());
 
-        return redirect()->route('shift.index')->with('success', 'Shift updated successfully.');
+        return redirect()->back()->with('success', 'Shift updated successfully.');
     }
 
     public function destroy($id)
     {
         Shift::find($id)->delete();
 
-        return redirect()->route('shift.index')->with('success', 'Shift deleted successfully.');
+        return redirect()->back()->with('success', 'Shift deleted successfully.');
     }
 }

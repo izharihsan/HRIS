@@ -33,12 +33,25 @@ Route::middleware(['auth'])->group(function () {
     // TIME OFF
     Route::group(['prefix' => 'timeoff'], function () {
         Route::get('/attendance', [ControllersAttendanceController::class, 'index'])->name('attendance');
+        // detail attendance
+        Route::get('/attendance/{id}', [ControllersAttendanceController::class, 'show'])->name('attendance.detail');
 
         // SHIFT
         Route::get('/shifts', [ShiftCtrl::class, 'index'])->name('shifts');
+        Route::post('/shifts', [ShiftCtrl::class, 'store'])->name('shifts.store');
+        Route::put('/shifts/{id}', [ShiftCtrl::class, 'update'])->name('shifts.update');
+        Route::delete('/shifts/{id}/delete', [ShiftCtrl::class, 'destroy'])->name('shifts.delete');
 
         // SCHEDULE
         Route::get('/schedules', [ScheduleCtrl::class, 'index'])->name('schedules');
+        Route::post('/schedules', [ScheduleCtrl::class, 'store'])->name('schedules.store');
+        Route::put('/schedules/{id}', [ScheduleCtrl::class, 'update'])->name('schedules.update');
+        Route::delete('/schedules/{id}/delete', [ScheduleCtrl::class, 'destroy'])->name('schedules.delete');
+
+        // OVERTIME
+        Route::get('/overtime', [ControllersAttendanceController::class, 'overtime'])->name('overtime');
+        Route::post('/overtime/approve/{id}', [ControllersAttendanceController::class, 'approve'])->name('overtimes.approve');
+        Route::post('/overtime/reject/{id}', [ControllersAttendanceController::class, 'reject'])->name('overtimes.reject');
     });
 });
 

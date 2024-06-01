@@ -5,13 +5,17 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\Shift;
+use App\Models\User;
 
 class ScheduleCtrl extends Controller
 {
     public function index()
     {
         $schedules = Schedule::all();
-        return view('admin.timeoff.schedule.view', compact('schedules'));
+        $shifts = Shift::all();
+        $users = User::all();
+        return view('admin.timeoff.schedule.view', compact('schedules', 'shifts', 'users'));
     }
 
     public function create()
@@ -29,7 +33,7 @@ class ScheduleCtrl extends Controller
 
         Schedule::create($request->all());
 
-        return redirect()->route('schedule.index')->with('success', 'Schedule created successfully.');
+        return redirect()->back()->with('success', 'Schedule created successfully.');
     }
 
     public function edit($id)
@@ -48,13 +52,13 @@ class ScheduleCtrl extends Controller
 
         Schedule::find($id)->update($request->all());
 
-        return redirect()->route('schedule.index')->with('success', 'Schedule updated successfully.');
+        return redirect()->back()->with('success', 'Schedule updated successfully.');
     }
 
     public function destroy($id)
     {
         Schedule::find($id)->delete();
 
-        return redirect()->route('schedule.index')->with('success', 'Schedule deleted successfully.');
+        return redirect()->back()->with('success', 'Schedule deleted successfully.');
     }
 }

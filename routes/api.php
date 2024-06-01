@@ -27,4 +27,8 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('attendance', [AttendanceCtrl::class, 'getCurrentAttendance']);
     Route::post('clock-in', [AttendanceCtrl::class, 'clock_in']);
     Route::post('clock-out', [AttendanceCtrl::class, 'clock_out']);
+
+    // overtime
+    Route::get('overtime', [AttendanceCtrl::class, 'getUserOvertime']);
+    Route::post('overtime', [AttendanceCtrl::class, 'submit_overtime']);
 });
