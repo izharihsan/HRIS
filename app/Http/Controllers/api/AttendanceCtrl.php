@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Absence;
 use Carbon\Carbon;
+use Illuminate\Log\Logger;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class AttendanceCtrl extends Controller
@@ -18,6 +20,16 @@ class AttendanceCtrl extends Controller
         //
     }
 
+    public function getCurrentAttendance()
+    {
+        // get the latest in today absence
+        $absence = Absence::where('user_id', auth()->user()->id)
+            ->whereDate('timestamp', Carbon::today())
+            ->latest()
+            ->first();
+        return response()->json($absence, 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -27,18 +39,16 @@ class AttendanceCtrl extends Controller
             $validate = $request->validate([
                 'lat' => 'required',
                 'lng' => 'required',
-                'proof_image' => 'required',
-                'face_recognition' => 'required'
             ]);
 
-            // save proof image and face recognition image in storage absences folder
+            //save proof image and face recognition image in storage public
             $proof_image = $request->file('proof_image');
             $proof_image_name = time() . '.' . $proof_image->getClientOriginalExtension();
-            Storage::disk('absences')->put($proof_image_name, file_get_contents($proof_image));
+            $proof_image->move(public_path('absences'), $proof_image_name);
 
             $face_recognition = $request->file('face_recognition');
             $face_recognition_name = time() . '.' . $face_recognition->getClientOriginalExtension();
-            Storage::disk('absences')->put($face_recognition_name, file_get_contents($face_recognition));
+            $face_recognition->move(public_path('absences'), $face_recognition_name);
 
             $absence = new Absence();
             $absence->user_id = auth()->user()->id;
@@ -46,11 +56,16 @@ class AttendanceCtrl extends Controller
             $absence->timestamp = Carbon::now();
             $absence->lat = $request->lat;
             $absence->lng = $request->lng;
-            $absence->proof_image = $request->proof_image;
-            $absence->face_recognition = $request->face_recognition;
+            $absence->proof_image = $proof_image_name;
+            $absence->face_recognition = $face_recognition_name;
+            $absence->start_time = $request->start_time;
             $absence->save();
             return response()->json(['message' => 'Absence recorded successfully'], 201);
         } catch (\Exception $e) {
+            // logger error
+            // Logger::error($e->getMessage());
+            // write error to log file
+            Log::error($e->getMessage());
             return response()->json(['message' => 'An error occurred'], 500);
         }
     }
@@ -62,8 +77,9 @@ class AttendanceCtrl extends Controller
         if ($find_absence) {
             try {
                 $validate = $request->validate([
-                    'lat' => 'required',
-                    'lng' => 'required',
+                    'end_time' => 'required',
+                    // 'lat' => 'required',
+                    // 'lng' => 'required',
                     // 'proof_image' => 'required',
                     // 'face_recognition' => 'required'
                 ]);
@@ -80,8 +96,9 @@ class AttendanceCtrl extends Controller
                 $find_absence->update([
                     'type' => 'clock_out',
                     'timestamp' => Carbon::now(),
-                    'lat' => $request->lat,
-                    'lng' => $request->lng,
+                    'end_time' => $request->end_time,
+                    // 'lat' => $request->lat,
+                    // 'lng' => $request->lng,
                     // 'proof_image' => $request->proof_image,
                     // 'face_recognition' => $request->face_recognition
                 ]);

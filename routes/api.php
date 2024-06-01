@@ -24,6 +24,7 @@ Route::post('v1/login', [AuthCtrl::class, 'login']);
 Route::middleware('auth:sanctum')->post('v1/logout', [AuthCtrl::class, 'logout']);
 
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+    Route::get('attendance', [AttendanceCtrl::class, 'getCurrentAttendance']);
     Route::post('clock-in', [AttendanceCtrl::class, 'clock_in']);
     Route::post('clock-out', [AttendanceCtrl::class, 'clock_out']);
 });

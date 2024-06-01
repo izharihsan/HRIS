@@ -11,7 +11,7 @@ class AuthCtrl extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (auth()->attempt($credentials)) {
-            // // $roles = [1, 2, 3, 4, 7, 8, 9];
+            // $roles = [5, 6, 7, 8, 9];
 
             // if (!in_array(auth()->user()->role_id, $roles)) {
             //     auth()->logout();
