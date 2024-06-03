@@ -19,6 +19,7 @@ class OvertimeCtrl extends Controller
         $absence = Overtime::find($id);
         $absence->status = 'approved';
         $absence->status_message = $request->message ?? '';
+        $absence->approved_at = now()->format('Y-m-d');
         $absence->save();
 
         return redirect()->back()->with('success', 'Overtime request has been approved');

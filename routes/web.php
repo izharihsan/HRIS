@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\ShiftCtrl;
 use App\Http\Controllers\admin\TimeoffCtrl;
 use App\Http\Controllers\AttendanceController as ControllersAttendanceController;
 use App\Http\Controllers\AuthCtrl;
+use App\Http\Controllers\DashboardCtrl;
 use App\Http\Controllers\OvertimeCtrl;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +25,7 @@ Route::get('/login', function () {
 })->name('login');
 Route::get('/logout', [AuthCtrl::class, 'logout'])->name('logout');
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
+Route::get('/', [DashboardCtrl::class, 'index'])->middleware('auth')->name('dashboard');
 
 Route::post('/login', [AuthCtrl::class, 'login'])->name('login_process');
 

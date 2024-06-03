@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // overtime
     Route::get('overtime', [OvertimeCtrl::class, 'getUserOvertime']);
     Route::post('overtime', [OvertimeCtrl::class, 'submit_overtime']);
+    Route::post('overtime/done', [OvertimeCtrl::class, 'done_overtime']);
 
     // leave
     Route::get('leave', [TimeoffCtrl::class, 'getUserLeaves']);

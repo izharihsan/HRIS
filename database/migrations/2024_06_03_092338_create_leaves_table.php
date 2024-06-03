@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('attachment');
             $table->enum('status', ['pending', 'approved', 'rejected']);
             $table->string('status_message')->nullable();
+            $table->date('approved_at')->nullable();
             $table->timestamps();
         });
     }
