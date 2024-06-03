@@ -94,4 +94,14 @@ class OvertimeCtrl extends Controller
         })->get();
         return response()->json($overtimes, 200);
     }
+
+    public function getUserOvertimeDetail($id)
+    {
+        $overtimes = Overtime::with('absence', 'absence.user')->whereHas('absence', function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        })
+            ->where('id', $id)
+            ->first();
+        return response()->json($overtimes, 200);
+    }
 }

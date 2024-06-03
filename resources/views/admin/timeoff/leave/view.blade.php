@@ -57,8 +57,7 @@
 
                                                         {{-- message input optionally --}}
                                                         <div class="form-group mt-2">
-                                                            <label for="message">Message</label>
-                                                            <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                                            <textarea class="form-control" name="message" id="message" rows="3" placeholder="Enter notes"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -91,8 +90,7 @@
 
                                                         {{-- message input optionally --}}
                                                         <div class="form-group mt-2">
-                                                            <label for="message">Message</label>
-                                                            <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                                            <textarea class="form-control" name="message" id="message" rows="3" placeholder="Enter notes"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -118,22 +116,16 @@
                                                     <h5 class="modal-title" id="myModalLabel160">Detail Leave</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body text-center">
-                                                    <p>Detail Leave</p>
-                                                    <p>Employee Name: {{ $leave->user->name }}</p>
-                                                    <p>Start Date: {{ $leave->start_date }}</p>
-                                                    <p>End Date: {{ $leave->end_date }}</p>
-                                                    <p>Message: {{ $leave->message }}</p>
-                                                    <p>Status: {{ $leave->status }}</p>
-                                                    <p>Response Message: {{ $leave->status_message }}</p>
+                                                <div class="modal-body text-start">
+                                                    <p>Employee Name: <strong>{{ $leave->user->name }}</strong></p>
+                                                    <p>Start Date: <strong>{{ $leave->start_date }}</strong></p>
+                                                    <p>End Date: <strong>{{ $leave->end_date }}</strong></p>
+                                                    <p>Message: <strong>{{ $leave->message }}</strong></p>
+                                                    <p>Status: <strong>{{ $leave->status }}</strong></p>
+                                                    <p>Response Message: <strong>{{ $leave->status_message }}</strong></p>
+                                                    <p>Approved At: <strong>{{ $leave->approved_at }}</strong></p>
                                                     {{-- a href to view attachment --}}
-                                                    <a href="{{ asset('timeoffs/' . $leave->attachment) }}" target="_blank" class="btn btn-info">View Attachment</a>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Close</span>
-                                                    </button>
+                                                    <a href="{{ asset('timeoffs/' . $leave->attachment) }}" target="_blank" class="btn btn-primary">View Attachment</a>
                                                 </div>
                                             </div>
                                         </div>
