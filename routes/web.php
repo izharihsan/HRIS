@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\admin\ScheduleCtrl;
 use App\Http\Controllers\admin\ShiftCtrl;
+use App\Http\Controllers\admin\TimeoffCtrl;
 use App\Http\Controllers\AttendanceController as ControllersAttendanceController;
 use App\Http\Controllers\AuthCtrl;
+use App\Http\Controllers\OvertimeCtrl;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,9 +51,24 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/schedules/{id}/delete', [ScheduleCtrl::class, 'destroy'])->name('schedules.delete');
 
         // OVERTIME
-        Route::get('/overtime', [ControllersAttendanceController::class, 'overtime'])->name('overtime');
-        Route::post('/overtime/approve/{id}', [ControllersAttendanceController::class, 'approve'])->name('overtimes.approve');
-        Route::post('/overtime/reject/{id}', [ControllersAttendanceController::class, 'reject'])->name('overtimes.reject');
+        Route::get('/overtime', [OvertimeCtrl::class, 'overtime'])->name('overtime');
+        Route::post('/overtime/approve/{id}', [OvertimeCtrl::class, 'approve'])->name('overtimes.approve');
+        Route::post('/overtime/reject/{id}', [OvertimeCtrl::class, 'reject'])->name('overtimes.reject');
+
+        // LEAVES
+        Route::get('/leave', [TimeoffCtrl::class, 'indexLeave'])->name('leaves');
+        Route::post('/leave/approve/{id}', [TimeoffCtrl::class, 'approveLeave'])->name('leaves.approve');
+        Route::post('/leave/reject/{id}', [TimeoffCtrl::class, 'rejectLeave'])->name('leaves.reject');
+
+        // SICK LEAVES
+        Route::get('/sick-leave', [TimeoffCtrl::class, 'indexSickLeave'])->name('sick_leaves');
+        Route::post('/sick-leave/approve/{id}', [TimeoffCtrl::class, 'approveSickLeave'])->name('sick_leaves.approve');
+        Route::post('/sick-leave/reject/{id}', [TimeoffCtrl::class, 'rejectSickLeave'])->name('sick_leaves.reject');
+
+        // PERMISSIONS
+        Route::get('/permission', [TimeoffCtrl::class, 'indexPermission'])->name('permissions');
+        Route::post('/permission/approve/{id}', [TimeoffCtrl::class, 'approvePermission'])->name('permissions.approve');
+        Route::post('/permission/reject/{id}', [TimeoffCtrl::class, 'rejectPermission'])->name('permissions.reject');
     });
 });
 

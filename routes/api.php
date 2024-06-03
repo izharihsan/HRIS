@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\AttendanceCtrl;
 use App\Http\Controllers\api\AuthCtrl;
+use App\Http\Controllers\api\OvertimeCtrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('v1/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::post('v1/login', [AuthCtrl::class, 'login']);
 Route::middleware('auth:sanctum')->post('v1/logout', [AuthCtrl::class, 'logout']);
+
+Route::middleware('auth:sanctum')->get('v1/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('attendance', [AttendanceCtrl::class, 'getCurrentAttendance']);
@@ -29,6 +31,6 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::post('clock-out', [AttendanceCtrl::class, 'clock_out']);
 
     // overtime
-    Route::get('overtime', [AttendanceCtrl::class, 'getUserOvertime']);
-    Route::post('overtime', [AttendanceCtrl::class, 'submit_overtime']);
+    Route::get('overtime', [OvertimeCtrl::class, 'getUserOvertime']);
+    Route::post('overtime', [OvertimeCtrl::class, 'submit_overtime']);
 });

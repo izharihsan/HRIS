@@ -91,7 +91,8 @@
                     </li>
 
                     <!-- Layouts -->
-                    <li class="menu-item {{ $title == 'Attendance' || $title == 'Schedule' || $title == 'Cuti' || $title == 'Izin' || $title == 'Sakit' || $title == 'Shifts' ? 'active open' : '' }}">
+                    <li
+                        class="menu-item {{ $title == 'Attendance' || $title == 'Schedule' || $title == 'Overtime' || $title == 'Cuti' || $title == 'Izin' || $title == 'Sakit' || $title == 'Shifts' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons ti ti-clock"></i>
                             <div data-i18n="Time Management">Time Management</div>
@@ -119,17 +120,17 @@
                                 </a>
                             </li>
                             <li class="menu-item {{ $title == 'Cuti' ? 'active' : '' }}">
-                                <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
+                                <a href="{{ route('leaves') }}" class="menu-link">
                                     <div data-i18n="Cuti">Cuti</div>
                                 </a>
                             </li>
                             <li class="menu-item {{ $title == 'Izin' ? 'active' : '' }}">
-                                <a href="../horizontal-menu-template" class="menu-link" target="_blank">
+                                <a href="{{ route('permissions') }}" class="menu-link">
                                     <div data-i18n="Izin">Izin</div>
                                 </a>
                             </li>
                             <li class="menu-item {{ $title == 'Sakit' ? 'active' : '' }}">
-                                <a href="layouts-without-menu.html" class="menu-link">
+                                <a href="{{ route('sick_leaves') }}" class="menu-link">
                                     <div data-i18n="Sakit">Sakit</div>
                                 </a>
                             </li>
