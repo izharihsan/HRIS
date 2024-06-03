@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\AttendanceCtrl;
 use App\Http\Controllers\api\AuthCtrl;
 use App\Http\Controllers\api\OvertimeCtrl;
+use App\Http\Controllers\api\TimeoffCtrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,16 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // overtime
     Route::get('overtime', [OvertimeCtrl::class, 'getUserOvertime']);
     Route::post('overtime', [OvertimeCtrl::class, 'submit_overtime']);
+
+    // leave
+    Route::get('leave', [TimeoffCtrl::class, 'getUserLeaves']);
+    Route::post('leave', [TimeoffCtrl::class, 'submit_leave']);
+
+    // sick leave
+    Route::post('sick-leave', [TimeoffCtrl::class, 'submit_sick_leave']);
+    Route::get('sick-leave', [TimeoffCtrl::class, 'getUserSickLeaves']);
+
+    // permission
+    Route::post('permission', [TimeoffCtrl::class, 'submit_permission']);
+    Route::get('permission', [TimeoffCtrl::class, 'getUserPermissions']);
 });
