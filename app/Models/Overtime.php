@@ -9,7 +9,7 @@ class Overtime extends Model
 {
     use HasFactory;
 
-    protected $table = 'overtimes';
+    protected $table = 'hr_overtimes';
     protected $guarded = [];
 
     public function absence()

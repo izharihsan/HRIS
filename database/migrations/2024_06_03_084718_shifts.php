@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shifts', function (Blueprint $table) {
+        Schema::create('hr_shifts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->time('start_time');

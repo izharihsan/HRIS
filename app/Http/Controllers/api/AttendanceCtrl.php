@@ -10,6 +10,7 @@ use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Overtime;
+use App\Models\Schedule;
 
 class AttendanceCtrl extends Controller
 {
@@ -61,6 +62,11 @@ class AttendanceCtrl extends Controller
             $absence->face_recognition = $face_recognition_name;
             $absence->start_time = $request->start_time;
             $absence->save();
+
+            Schedule::where('user_id', auth()->user()->id)
+                ->whereDate('date', Carbon::today())
+                ->update(['absence_id' => $absence->id]);
+
             return response()->json(['message' => 'Absence recorded successfully'], 201);
         } catch (\Exception $e) {
             // logger error

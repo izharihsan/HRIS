@@ -49,16 +49,18 @@ class TimeoffCtrl extends Controller
     public function submit_sick_leave(Request $request)
     {
         try {
+            $attachment_name = null;
             $validate = $request->validate([
                 'start_date' => 'required',
                 'end_date' => 'required',
                 'message' => 'nullable',
-                'attachment' => 'required',
             ]);
 
-            $attachment = $request->file('attachment');
-            $attachment_name = time() . '_' . $attachment->getClientOriginalName();
-            $attachment->move(public_path('timeoffs'), $attachment_name);
+            if ($request->hasFile('attachment')) {
+                $attachment = $request->file('attachment');
+                $attachment_name = time() . '_' . $attachment->getClientOriginalName();
+                $attachment->move(public_path('timeoffs'), $attachment_name);
+            }
 
             $sick_leave = new SickLeave();
             $sick_leave->user_id = auth()->user()->id;

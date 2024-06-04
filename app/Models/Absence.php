@@ -10,7 +10,7 @@ class Absence extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'absences';
+    protected $table = 'hr_absences';
 
     public function overtime()
     {

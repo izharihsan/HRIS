@@ -10,7 +10,7 @@ class Shift extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'shifts';
+    protected $table = 'hr_shifts';
 
     public function schedules()
     {

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('overtimes', function (Blueprint $table) {
+        Schema::create('hr_overtimes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('absence_id')->nullable();
             $table->text('message');

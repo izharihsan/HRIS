@@ -90,6 +90,61 @@
                         </a>
                     </li>
 
+                    <li class="menu-item">
+                        <a href="/" class="menu-link">
+                            <i class="menu-icon tf-icons ti ti-notification"></i>
+                            <div data-i18n="Notifications">Notifications</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons ti ti-building"></i>
+                            <div data-i18n="Perusahaan">Perusahaan</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="app-access-roles.html" class="menu-link">
+                                    <div data-i18n="Perusahaan">Perusahaan</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="app-access-permission.html" class="menu-link">
+                                    <div data-i18n="Cabang">Cabang</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="app-access-permission.html" class="menu-link">
+                                    <div data-i18n="Jabatan">Jabatan</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="app-access-permission.html" class="menu-link">
+                                    <div data-i18n="Status">Status</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons ti ti-users-group"></i>
+                            <div data-i18n="Employees">Employees</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="app-access-roles.html" class="menu-link">
+                                    <div data-i18n="Employee List">Employee List</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="app-access-permission.html" class="menu-link">
+                                    <div data-i18n="Payroll">Payroll</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <!-- Layouts -->
                     <li
                         class="menu-item {{ $title == 'Attendance' || $title == 'Schedule' || $title == 'Overtime' || $title == 'Cuti' || $title == 'Izin' || $title == 'Sakit' || $title == 'Shifts' ? 'active open' : '' }}">
@@ -139,28 +194,21 @@
 
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons ti ti-users-group"></i>
-                            <div data-i18n="Employees">Employees</div>
+                            <i class="menu-icon tf-icons ti ti-wallet"></i>
+                            <div data-i18n="Payroll">Payroll</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="app-access-roles.html" class="menu-link">
-                                    <div data-i18n="Employee List">Employee List</div>
+                                    <div data-i18n="Tipe">Tipe</div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="app-access-permission.html" class="menu-link">
-                                    <div data-i18n="Employee Report">Employee Report</div>
+                                    <div data-i18n="Slip Gaji">Slip Gaji</div>
                                 </a>
                             </li>
                         </ul>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="/" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-wallet"></i>
-                            <div data-i18n="Payroll">Payroll</div>
-                        </a>
                     </li>
 
                     <li class="menu-item">

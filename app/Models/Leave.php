@@ -9,7 +9,7 @@ class Leave extends Model
 {
     use HasFactory;
 
-    protected $table = 'leaves';
+    protected $table = 'hr_leaves';
     protected $guarded = [];
 
     public function user()
