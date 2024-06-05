@@ -22,7 +22,7 @@
                         @foreach ($absences as $attendance)
                             <tr>
                                 <td>{{ $attendance->id }}</td>
-                                <td>{{ $attendance->user->name }}</td>
+                                <td>{{ $attendance->user->name ?? '' }}</td>
                                 <td>
                                     @if ($attendance->type == 'clock_in')
                                         <span>Clock In</span>

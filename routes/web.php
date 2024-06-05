@@ -39,7 +39,9 @@ Route::middleware(['auth'])->group(function () {
 
         // SHIFT
         Route::get('/shifts', [ShiftCtrl::class, 'index'])->name('shifts');
+        Route::get('/shifts/schedule/{id}', [ShiftCtrl::class, 'schedules'])->name('shifts.schedule');
         Route::post('/shifts', [ShiftCtrl::class, 'store'])->name('shifts.store');
+        Route::post('/shifts/schedule', [ShiftCtrl::class, 'schedule_save'])->name('shifts.schedule.save');
         Route::put('/shifts/{id}', [ShiftCtrl::class, 'update'])->name('shifts.update');
         Route::delete('/shifts/{id}/delete', [ShiftCtrl::class, 'destroy'])->name('shifts.delete');
 

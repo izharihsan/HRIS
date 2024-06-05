@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('hr_overtimes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('absence_id')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->text('message');
             $table->time('start_time');
             $table->time('end_time');

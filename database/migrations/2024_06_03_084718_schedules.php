@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('hr_schedules', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->date('date');
             $table->bigInteger('shift_id');
-            $table->bigInteger('absence_id')->nullable();
+            $table->bigInteger('user_ids');
+            $table->string('day');
         });
     }
 

@@ -35,8 +35,10 @@
     <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/swiper/swiper.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="/assets/vendor/css/pages/cards-advance.css" />
@@ -156,14 +158,14 @@
                         <ul class="menu-sub">
                             <li class="menu-item {{ $title == 'Shifts' ? 'active' : '' }}">
                                 <a href="{{ route('shifts') }}" class="menu-link">
-                                    <div data-i18n="Shift">Shift</div>
+                                    <div data-i18n="Shift & Schedule">Shift & Schedule</div>
                                 </a>
                             </li>
-                            <li class="menu-item {{ $title == 'Schedule' ? 'active' : '' }}">
+                            {{-- <li class="menu-item {{ $title == 'Schedule' ? 'active' : '' }}">
                                 <a href="{{ route('schedules') }}" class="menu-link">
                                     <div data-i18n="Schedule">Schedule</div>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="menu-item {{ $title == 'Attendance' ? 'active' : '' }}">
                                 <a href="{{ route('attendance') }}" class="menu-link">
                                     <div data-i18n="Attendances">Attendances</div>
@@ -421,6 +423,9 @@
     <script src="/assets/js/dashboards-analytics.js"></script>
     <!-- Page JS -->
     <script src="/assets/js/tables-datatables-basic.js"></script>
+    <script src="/assets/vendor/libs/select2/select2.js"></script>
+    <script src="/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+    <script src="/assets/js/forms-selects.js"></script>
 </body>
 
 </html>

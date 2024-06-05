@@ -23,7 +23,7 @@
                         @foreach ($leaves as $leave)
                             <tr>
                                 <td>{{ $leave->id }}</td>
-                                <td>{{ $leave->user->name }}</td>
+                                <td>{{ $leave->user->name ?? '' }}</td>
                                 <td>{{ $leave->start_date }}</td>
                                 <td>{{ $leave->end_date }}</td>
                                 <td>

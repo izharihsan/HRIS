@@ -63,15 +63,8 @@ class AttendanceCtrl extends Controller
             $absence->start_time = $request->start_time;
             $absence->save();
 
-            Schedule::where('user_id', auth()->user()->id)
-                ->whereDate('date', Carbon::today())
-                ->update(['absence_id' => $absence->id]);
-
             return response()->json(['message' => 'Absence recorded successfully'], 201);
         } catch (\Exception $e) {
-            // logger error
-            // Logger::error($e->getMessage());
-            // write error to log file
             Log::error($e->getMessage());
             return response()->json(['message' => 'An error occurred'], 500);
         }

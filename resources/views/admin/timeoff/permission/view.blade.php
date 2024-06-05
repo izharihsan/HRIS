@@ -23,7 +23,7 @@
                         @foreach ($permissions as $permission)
                             <tr>
                                 <td>{{ $permission->id }}</td>
-                                <td>{{ $permission->user->name }}</td>
+                                <td>{{ $permission->user->name ?? '' }}</td>
                                 <td>{{ $permission->start_date }}</td>
                                 <td>{{ $permission->end_date }}</td>
                                 <td>
@@ -117,7 +117,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body text-start">
-                                                    <p>Employee Name: <strong>{{ $permission->user->name }}</strong></p>
+                                                    <p>Employee Name: <strong>{{ $permission->user->name ?? '' }}</strong></p>
                                                     <p>Start Date: <strong>{{ $permission->start_date }}</strong></p>
                                                     <p>End Date: <strong>{{ $permission->end_date }}</strong></p>
                                                     <p>Message: <strong>{{ $permission->message }}</strong></p>

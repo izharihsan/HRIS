@@ -23,7 +23,7 @@
                         @foreach ($overtimes as $overtime)
                             <tr>
                                 <td>{{ $overtime->id }}</td>
-                                <td>{{ $overtime->absence->user->name }}</td>
+                                <td>{{ $overtime->user->name ?? '' }}</td>
                                 <td>{{ $overtime->start_time }}</td>
                                 <td>{{ $overtime->end_time }}</td>
                                 <td>

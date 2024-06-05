@@ -26,9 +26,9 @@
                         @foreach ($schedules as $schedule)
                             <tr>
                                 <td>{{ $schedule->id }}</td>
-                                <td>{{ $schedule->user->name }}</td>
+                                <td>{{ $schedule->user->name ?? '' }}</td>
                                 <td>{{ Carbon\Carbon::parse($schedule->date)->format('d-m-Y') }}</td>
-                                <td>{{ $schedule->shift->title }}</td>
+                                <td>{{ $schedule->shift->title ?? '' }}</td>
                                 <td>
                                     @if ($schedule->absence_id != null)
                                         <span class="badge bg-success">Attend</span>

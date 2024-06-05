@@ -23,7 +23,7 @@
                         @foreach ($sick_leaves as $sick_leave)
                             <tr>
                                 <td>{{ $sick_leave->id }}</td>
-                                <td>{{ $sick_leave->user->name }}</td>
+                                <td>{{ $sick_leave->user->name ?? '' }}</td>
                                 <td>{{ $sick_leave->start_date }}</td>
                                 <td>{{ $sick_leave->end_date }}</td>
                                 <td>
@@ -117,7 +117,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body text-start">
-                                                    <p>Employee Name: <strong>{{ $sick_leave->user->name }}</strong></p>
+                                                    <p>Employee Name: <strong>{{ $sick_leave->user->name ?? '' }}</strong></p>
                                                     <p>Start Date: <strong>{{ $sick_leave->start_date }}</strong></p>
                                                     <p>End Date: <strong>{{ $sick_leave->end_date }}</strong></p>
                                                     <p>Message: <strong>{{ $sick_leave->message }}</strong></p>
