@@ -4,6 +4,7 @@ use App\Http\Controllers\api\AttendanceCtrl;
 use App\Http\Controllers\api\AuthCtrl;
 use App\Http\Controllers\api\OvertimeCtrl;
 use App\Http\Controllers\api\TimeoffCtrl;
+use App\Http\Controllers\api\UserCtrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->get('v1/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+    // AUTH
+    Route::put('user/update', [UserCtrl::class, 'update_user']);
     Route::get('pin/check', [AuthCtrl::class, 'check_is_new_pin_or_not']);
     Route::post('pin/update', [AuthCtrl::class, 'update_pin']);
     Route::post('pin/validate', [AuthCtrl::class, 'validate_pin']);

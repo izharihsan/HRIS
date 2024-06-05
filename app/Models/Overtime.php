@@ -12,8 +12,8 @@ class Overtime extends Model
     protected $table = 'hr_overtimes';
     protected $guarded = [];
 
-    public function absence()
+    public function user()
     {
-        return $this->belongsTo(Absence::class, 'absence_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

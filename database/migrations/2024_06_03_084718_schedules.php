@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('hr_schedules', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('shift_id');
-            $table->bigInteger('user_ids');
+            $table->text('user_ids');
             $table->string('day');
         });
     }

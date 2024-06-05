@@ -38,6 +38,7 @@
                                 <td>{{ $shift->start_time }}</td>
                                 <td>{{ $shift->end_time }}</td>
                                 <td>
+                                    <a href="{{ route('shifts.schedule', $shift->id) }}" class="btn btn-sm btn-warning">Schedules</a>
                                     <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#edit-record-{{ $shift->id }}">Edit</button>
 
                                     <!-- Edit Record Modal -->
@@ -75,7 +76,6 @@
                                         </div>
                                     </div>
 
-                                    <a href="{{ route('shifts.schedule', $shift->id) }}" class="btn btn-sm btn-warning">Schedules</a>
 
                                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#delete-record-{{ $shift->id }}">Delete</button>
 

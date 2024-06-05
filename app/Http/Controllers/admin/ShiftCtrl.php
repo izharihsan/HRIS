@@ -101,6 +101,8 @@ class ShiftCtrl extends Controller
     {
         Shift::find($id)->delete();
 
+        Schedule::where('shift_id', $id)->delete();
+
         return redirect()->back()->with('success', 'Shift deleted successfully.');
     }
 }

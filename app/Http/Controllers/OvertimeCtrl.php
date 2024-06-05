@@ -10,7 +10,7 @@ class OvertimeCtrl extends Controller
     // OVERTIME CTRL
     public function overtime()
     {
-        $overtimes = Overtime::with('absence', 'absence.user')->get();
+        $overtimes = Overtime::with('user')->get();
         return view('admin.timeoff.overtime.view', compact('overtimes'));
     }
 

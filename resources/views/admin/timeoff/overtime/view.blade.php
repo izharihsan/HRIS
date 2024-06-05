@@ -12,6 +12,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Name</th>
+                            <th>Date</th>
                             <th>Start Time</th>
                             <th>End Time</th>
                             <th>Status</th>
@@ -24,6 +25,7 @@
                             <tr>
                                 <td>{{ $overtime->id }}</td>
                                 <td>{{ $overtime->user->name ?? '' }}</td>
+                                <td>{{ $overtime->overtime_date }}</td>
                                 <td>{{ $overtime->start_time }}</td>
                                 <td>{{ $overtime->end_time }}</td>
                                 <td>
@@ -116,11 +118,11 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body text-start">
-                                                    <p>Employee Name: <strong>{{ $overtime->absence->user->name }}</strong></p>
+                                                    <p>Employee Name: <strong>{{ $overtime->user->name }}</strong></p>
                                                     <p>Overtime Date: <strong>{{ $overtime->overtime_date }}</strong></p>
                                                     <p>Start Time: <strong>{{ $overtime->start_time }}</strong></p>
                                                     <p>End Time: <strong>{{ $overtime->end_time }}</strong></p>
-                                                    <p>Message: <strong>{{ $overtime->message }}</strong></p>
+                                                    <p>Keterangan Lembur: <strong>{{ $overtime->message }}</strong></p>
                                                     <p>Status: <strong>{{ $overtime->status }}</strong></p>
                                                     <p>Response Message: <strong>{{ $overtime->status_message }}</strong></p>
                                                     <p>Approved At: <strong>{{ $overtime->approved_at }}</strong></p>
