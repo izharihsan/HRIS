@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('pin/check', [AuthCtrl::class, 'check_is_new_pin_or_not']);
     Route::post('pin/update', [AuthCtrl::class, 'update_pin']);
     Route::post('pin/validate', [AuthCtrl::class, 'validate_pin']);
+    Route::get('profile', [AuthCtrl::class, 'getProfile']);
 
     Route::get('attendance', [AttendanceCtrl::class, 'getCurrentAttendance']);
     Route::post('clock-in', [AttendanceCtrl::class, 'clock_in']);

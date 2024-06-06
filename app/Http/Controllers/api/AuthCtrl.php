@@ -92,6 +92,36 @@ class AuthCtrl extends Controller
         }
     }
 
+    public function getProfile()
+    {
+        try {
+            $user = User::with([
+                'employee' => function ($query) {
+                    $query->select('id', 'name', 'email', 'telpon', 'status_pernikahan', 'province_id', 'city_id', 'district_id', 'village_id', 'jenis_kelamin', 'rt', 'rw', 'kode_pos', 'alamat', 'tanggal_join', 'tempat_lahir', 'tanggal_lahir');
+                },
+                'employee.province' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'employee.city' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'employee.district' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'employee.village' => function ($query) {
+                    $query->select('id', 'name');
+                },
+            ])->find(auth()->user()->id);
+
+            return response()->json($user, 200);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Failed to get user.'
+            ], 500);
+        }
+    }
+
     public function logout(Request $request)
     {
         auth()->user()->tokens()->delete();
