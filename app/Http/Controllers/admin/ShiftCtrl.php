@@ -20,36 +20,60 @@ class ShiftCtrl extends Controller
     {
         $shifts = Shift::with('schedules')->find($id);
         $users = User::all();
+
+        // Custom order for days of the week
+        $daysOrder = [
+            'Senin' => 1,
+            'Selasa' => 2,
+            'Rabu' => 3,
+            'Kamis' => 4,
+            'Jumat' => 5,
+            'Sabtu' => 6
+        ];
+
+        // Normalize day values and sort schedules
+        $shifts->schedules = $shifts->schedules->sortBy(function ($schedule) use ($daysOrder) {
+            $day = trim($schedule->day);  // Ensure whitespace is trimmed
+            return $daysOrder[$day] ?? 999;  // Handle unexpected day values
+        });
+
         foreach ($shifts->schedules as $schedule) {
             $schedule->user_ids = explode(',', $schedule->user_ids);
         }
+
         return view('admin.timeoff.shift.view_schedule', compact('shifts', 'users'));
     }
 
+
+
     public function schedule_save(Request $request)
     {
-        // Extract the relevant form data, excluding the '_token'
-        $formData = $request->except('_token');
+        // Extract the form data, excluding '_token' and 'shift_id'
+        $formData = $request->except('_token', 'shift_id', 'id');
         $shift_id = $request->shift_id;
+        $ids = $request->id;
 
-        foreach ($request->except('_token', 'shift_id') as $day => $userIdsArray) {
-            // check if the user is one or more
-            if (is_array($userIdsArray)) {
-                $userIds = implode(',', $userIdsArray);
-            } else {
-                $userIds = $userIdsArray;
+        foreach ($formData as $day => $userIdsArray) {
+            // Get the index from the day string (assuming day has a pattern like 'Senin_1', 'Selasa_2', etc.)
+            $index = array_search($day, array_keys($formData));
+
+            // Ensure the index is valid
+            if (isset($ids[$index])) {
+                $id = $ids[$index];
+
+                // Find the schedule by shift_id and id
+                $schedule = Schedule::where('id', $id)->first();
+
+                if ($schedule) {
+                    // Update the user_ids column with the new array of user IDs
+                    $schedule->user_ids = implode(',', $userIdsArray);
+                    $schedule->save();
+                }
             }
-
-            $schedule = Schedule::where('shift_id', $shift_id)->first();
-            // remove _______ from the day
-            $schedule->day = str_replace('_', '', $day);
-            $schedule->user_ids = $userIds;
-            $schedule->save();
         }
 
         return redirect()->back()->with('success', 'Schedule updated successfully.');
     }
-
 
     public function create()
     {
@@ -69,7 +93,7 @@ class ShiftCtrl extends Controller
             foreach ($days as $day) {
                 $schedule = new Schedule();
                 $schedule->shift_id = $shift->id;
-                $schedule->day = $day;
+                $schedule->day = trim($day);  // Trim any potential whitespace
                 $schedule->save();
             }
             return redirect()->back()->with('success', 'Shift created successfully.');
@@ -77,6 +101,7 @@ class ShiftCtrl extends Controller
 
         return redirect()->back()->with('error', 'Failed to create shift.');
     }
+
 
     public function edit($id)
     {

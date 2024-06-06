@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Overtime;
+use App\Models\Shift;
 use App\Models\Schedule;
 
 class AttendanceCtrl extends Controller
@@ -43,7 +43,27 @@ class AttendanceCtrl extends Controller
                 'lng' => 'required',
             ]);
 
-            //save proof image and face recognition image in storage public
+            $days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            $day = $days[Carbon::now()->dayOfWeek];
+
+            $userId = auth()->user()->id;
+            $schedule = Schedule::with('shift')->where('day', $day)
+                ->whereRaw("user_ids LIKE '%,$userId,%' OR user_ids LIKE '$userId,%' OR user_ids LIKE '%,$userId' OR user_ids = '$userId'")
+                ->first();
+
+            if (!$schedule) {
+                return throw new \Exception('You are not scheduled to work today');
+            }
+
+            // check if user late or not based on schedule -> shift start time
+            $late = false;
+            $shift_start_time = Carbon::parse($schedule->shift->start_time);
+            $current_time = Carbon::parse($request->start_time);
+            if ($current_time->gt($shift_start_time)) {
+                $late = true;
+            }
+
+            //  save proof image and face recognition image in storage public
             $proof_image = $request->file('proof_image');
             $proof_image_name = time() . '.' . $proof_image->getClientOriginalExtension();
             $proof_image->move(public_path('absences'), $proof_image_name);
@@ -61,14 +81,16 @@ class AttendanceCtrl extends Controller
             $absence->proof_image = $proof_image_name;
             $absence->face_recognition = $face_recognition_name;
             $absence->start_time = $request->start_time;
+            $absence->late = $late;
             $absence->save();
 
             return response()->json(['message' => 'Absence recorded successfully'], 201);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['message' => 'An error occurred'], 500);
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+
 
     public function clock_out(Request $request)
     {

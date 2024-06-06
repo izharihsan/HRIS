@@ -45,12 +45,6 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/shifts/{id}', [ShiftCtrl::class, 'update'])->name('shifts.update');
         Route::delete('/shifts/{id}/delete', [ShiftCtrl::class, 'destroy'])->name('shifts.delete');
 
-        // SCHEDULE
-        Route::get('/schedules', [ScheduleCtrl::class, 'index'])->name('schedules');
-        Route::post('/schedules', [ScheduleCtrl::class, 'store'])->name('schedules.store');
-        Route::put('/schedules/{id}', [ScheduleCtrl::class, 'update'])->name('schedules.update');
-        Route::delete('/schedules/{id}/delete', [ScheduleCtrl::class, 'destroy'])->name('schedules.delete');
-
         // OVERTIME
         Route::get('/overtime', [OvertimeCtrl::class, 'overtime'])->name('overtime');
         Route::post('/overtime/approve/{id}', [OvertimeCtrl::class, 'approve'])->name('overtimes.approve');
