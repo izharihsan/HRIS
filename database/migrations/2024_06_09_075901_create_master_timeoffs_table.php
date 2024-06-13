@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hr_sick_leaves', function (Blueprint $table) {
+        Schema::create('hr_master_timeoffs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
+            $table->string('name');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('message');
-            $table->string('attachment');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->string('status_message')->nullable();
-            $table->date('approved_at')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sick_leaves');
+        Schema::dropIfExists('master_timeoffs');
     }
 };

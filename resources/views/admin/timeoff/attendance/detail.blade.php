@@ -10,8 +10,8 @@
                 <p><strong>Status Attend:</strong> <span class = "badge bg-{{ $absence->type == 'clock_out' ? 'success' : 'primary' }}">{{ $absence->type == 'clock_out' ? 'Clock Out' : 'Clock In' }}</span>
                 </p>
                 <p><strong>Late:</strong> {{ $absence->late ? 'Yes' : 'No' }}</p>
-                <p><strong>Start Time:</strong> {{ $absence->start_time }}</p>
-                <p><strong>End Time:</strong> {{ $absence->end_time }}</p>
+                <p><strong>Check In Time:</strong> {{ $absence->start_time }}</p>
+                <p><strong>Check Out Time:</strong> {{ $absence->end_time }}</p>
                 <p><strong>Proof Image:</strong>
                 </p>
                 @if ($absence->proof_image)

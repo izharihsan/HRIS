@@ -22,8 +22,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Title</th>
-                            <th>Title</th>
+                            <th>Branch</th>
+                            <th>Branch</th>
                             <th>Start Time</th>
                             <th>End Time</th>
                             <th>Action</th>

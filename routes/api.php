@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\api\AddressCtrl;
 use App\Http\Controllers\api\AttendanceCtrl;
 use App\Http\Controllers\api\AuthCtrl;
+use App\Http\Controllers\api\EmployeeCtrl;
 use App\Http\Controllers\api\OvertimeCtrl;
 use App\Http\Controllers\api\TimeoffCtrl;
 use App\Http\Controllers\api\UserCtrl;
@@ -19,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// GENERAL APIs
 Route::post('v1/login', [AuthCtrl::class, 'login']);
 Route::middleware('auth:sanctum')->post('v1/logout', [AuthCtrl::class, 'logout']);
 
@@ -27,13 +29,16 @@ Route::middleware('auth:sanctum')->get('v1/user', function (Request $request) {
     return $request->user();
 });
 
+// MOBILE APIs
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // AUTH
     Route::put('user/update', [UserCtrl::class, 'update_user']);
     Route::get('pin/check', [AuthCtrl::class, 'check_is_new_pin_or_not']);
     Route::post('pin/update', [AuthCtrl::class, 'update_pin']);
     Route::post('pin/validate', [AuthCtrl::class, 'validate_pin']);
-    Route::get('profile', [AuthCtrl::class, 'getProfile']);
+    Route::get('profile', [EmployeeCtrl::class, 'getProfile']);
+    Route::post('profile/update-personal', [EmployeeCtrl::class, 'updateProfilePersonal']);
+    Route::post('profile/update-contact', [EmployeeCtrl::class, 'updateProfileContact']);
 
     Route::get('attendance', [AttendanceCtrl::class, 'getCurrentAttendance']);
     Route::post('clock-in', [AttendanceCtrl::class, 'clock_in']);
@@ -56,4 +61,10 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // permission
     Route::post('permission', [TimeoffCtrl::class, 'submit_permission']);
     Route::get('permission', [TimeoffCtrl::class, 'getUserPermissions']);
+
+    // ADDRESS API
+    Route::get('provinces', [AddressCtrl::class, 'getProvinces']);
+    Route::get('cities/{province_id}', [AddressCtrl::class, 'getCities']);
+    Route::get('districts/{city_id}', [AddressCtrl::class, 'getDistricts']);
+    Route::get('villages/{district_id}', [AddressCtrl::class, 'getVillages']);
 });

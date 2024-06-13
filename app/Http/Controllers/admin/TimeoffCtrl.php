@@ -10,6 +10,33 @@ use App\Models\Permission;
 
 class TimeoffCtrl extends Controller
 {
+    public function allDataMerge()
+    {
+        $leaves = Leave::all();
+        $sick_leaves = SickLeave::all();
+        $permissions = Permission::all();
+
+        // define type for each data
+        $leaves->map(function ($leave) {
+            $leave->type = 'Cuti';
+            return $leave;
+        });
+
+        $sick_leaves->map(function ($sick_leave) {
+            $sick_leave->type = 'Sakit';
+            return $sick_leave;
+        });
+
+        $permissions->map(function ($permission) {
+            $permission->type = 'Izin';
+            return $permission;
+        });
+        // add all data to one collection
+        $allDataTimeoff = [...$leaves, ...$sick_leaves, ...$permissions];
+        // dd($allDataTimeoff);
+        return view('admin.timeoff.all_data.view', compact('allDataTimeoff'));
+    }
+
     public function indexLeave()
     {
         $leaves = Leave::all();

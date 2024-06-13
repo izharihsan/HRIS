@@ -22,8 +22,13 @@ class OvertimeCtrl extends Controller
             ]);
             $before_image_name = null;
 
+            if ($request->hasFile('before_image')) {
+                $before_image = $request->file('before_image');
+                $before_image_name = time() . '.' . $before_image->getClientOriginalExtension();
+                $before_image->move(public_path('timeoffs'), $before_image_name);
+            }
+
             $overtime = new Overtime();
-            $overtime->absence_id = null;
             $overtime->user_id = auth()->user()->id;
             $overtime->start_time = $request->start_time;
             $overtime->end_time = $request->end_time;
@@ -63,19 +68,13 @@ class OvertimeCtrl extends Controller
 
     public function getUserOvertime()
     {
-        $overtimes = Overtime::with('absence', 'absence.user')->whereHas('absence', function ($query) {
-            $query->where('user_id', auth()->user()->id);
-        })->get();
+        $overtimes = Overtime::where('user_id', auth()->user()->id)->get();
         return response()->json($overtimes, 200);
     }
 
     public function getUserOvertimeDetail($id)
     {
-        $overtimes = Overtime::with('absence', 'absence.user')->whereHas('absence', function ($query) {
-            $query->where('user_id', auth()->user()->id);
-        })
-            ->where('id', $id)
-            ->first();
+        $overtimes = Overtime::find($id);
         return response()->json($overtimes, 200);
     }
 }

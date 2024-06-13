@@ -18,7 +18,7 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->date('overtime_date');
-            $table->enum('status', ['pending', 'approved', 'rejected']);
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('status_message')->nullable();
             $table->string('before_image')->nullable();
             $table->string('after_image')->nullable();

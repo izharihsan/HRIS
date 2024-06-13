@@ -99,6 +99,20 @@
                         </a>
                     </li>
 
+                    {{-- <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons ti ti-settings"></i>
+                            <div data-i18n="Master Data">Master Data</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="app-access-roles.html" class="menu-link">
+                                    <div data-i18n="Master Cuti/Izin/Sakit">Master Cuti/Izin/Sakit</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li> --}}
+
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons ti ti-building"></i>

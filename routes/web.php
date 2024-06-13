@@ -7,6 +7,7 @@ use App\Http\Controllers\AttendanceController as ControllersAttendanceController
 use App\Http\Controllers\AuthCtrl;
 use App\Http\Controllers\DashboardCtrl;
 use App\Http\Controllers\OvertimeCtrl;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +51,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/overtime/approve/{id}', [OvertimeCtrl::class, 'approve'])->name('overtimes.approve');
         Route::post('/overtime/reject/{id}', [OvertimeCtrl::class, 'reject'])->name('overtimes.reject');
 
+        // all data
+        // Route::get('/timeoffs', [TimeoffCtrl::class, 'allDataMerge'])->name('all_data_timeoff');
+
         // LEAVES
         Route::get('/leave', [TimeoffCtrl::class, 'indexLeave'])->name('leaves');
         Route::post('/leave/approve/{id}', [TimeoffCtrl::class, 'approveLeave'])->name('leaves.approve');
@@ -74,3 +78,33 @@ Route::middleware(['auth'])->group(function () {
 //         'date' => '2024-05-31'
 //     ]);
 // });
+
+Route::get('/config-clear', function () {
+    Artisan::call('config:clear');
+    return 'config:clear';
+});
+
+Route::get('/cache-clear', function () {
+    Artisan::call('cache:clear');
+    return 'cache:clear';
+});
+
+Route::get('/config-cache', function () {
+    Artisan::call('config:cache');
+    return 'config:cache';
+});
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'storage:link';
+});
+
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    return 'migrate';
+});
+
+Route::get('/migrate-refresh', function () {
+    Artisan::call('migrate:refresh');
+    return 'migrate:refresh';
+});
