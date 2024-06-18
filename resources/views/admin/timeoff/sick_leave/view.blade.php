@@ -5,8 +5,8 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card p-3">
             <h3>Employee Sick Leaves</h3>
-            <div class="card-datatable table-responsive pt-0">
-                <table class="datatables-basic table">
+            <div class="card-datatable table-responsive pt-0 mt-3">
+                <table class="datatables-basic table cell-border" id="datatables-basic">
                     <thead>
                         <tr>
                             <th>ID</th>

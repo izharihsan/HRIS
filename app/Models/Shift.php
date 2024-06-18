@@ -12,6 +12,11 @@ class Shift extends Model
     protected $guarded = [];
     protected $table = 'hr_shifts';
 
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
+
     public function schedules()
     {
         return $this->hasMany(Schedule::class, 'shift_id', 'id');

@@ -6,7 +6,7 @@
             <h3>Detail Attendance</h3>
             {{-- Display employee attendance details using the $absence variable --}}
             <div class="attendance-details">
-                <p><strong>Employee Name:</strong> {{ $absence->user->name }}</p>
+                <p><strong>Employee Name:</strong> {{ $absence->employee->name }}</p>
                 <p><strong>Status Attend:</strong> <span class = "badge bg-{{ $absence->type == 'clock_out' ? 'success' : 'primary' }}">{{ $absence->type == 'clock_out' ? 'Clock Out' : 'Clock In' }}</span>
                 </p>
                 <p><strong>Late:</strong> {{ $absence->late ? 'Yes' : 'No' }}</p>
@@ -20,7 +20,9 @@
                 <div class="mt-3"></div>
                 <p><strong>Location:</strong></p>
                 <div id="map" style="height: 400px;"></div>
+                <br>
             </div>
+            <a href="{{ route('attendance') }}" class="btn btn-secondary">Kembali</a>
         </div>
     </div>
 

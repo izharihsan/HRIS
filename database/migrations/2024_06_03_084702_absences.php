@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('type', ['clock_in', 'clock_out', 'forgot_clock_in', 'forgot_clock_out']);
             $table->boolean('late')->default(false);
             $table->timestamp('timestamp');
+            $table->date('tanggal');
             $table->string('lat');
             $table->string('lng');
             $table->string('proof_image');

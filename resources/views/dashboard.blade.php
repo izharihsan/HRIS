@@ -80,7 +80,7 @@
                                 @foreach ($absencesHistoryWithLimit as $attendance)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $attendance->user->name }}</td>
+                                        <td>{{ $attendance->employee->name ?? '' }}</td>
                                         <td>
                                             @if ($attendance->type == 'clock_in')
                                                 <span>Clock In</span>

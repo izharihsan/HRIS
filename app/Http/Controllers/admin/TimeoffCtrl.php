@@ -39,7 +39,7 @@ class TimeoffCtrl extends Controller
 
     public function indexLeave()
     {
-        $leaves = Leave::all();
+        $leaves = Leave::latest()->get();
         return view('admin.timeoff.leave.view', compact('leaves'));
     }
 
@@ -62,6 +62,7 @@ class TimeoffCtrl extends Controller
         return redirect()->back()->with('success', 'Leave request has been rejected');
     }
 
+    // GK DIPAKE
     public function indexSickLeave()
     {
         $sick_leaves = SickLeave::all();
@@ -111,4 +112,6 @@ class TimeoffCtrl extends Controller
         $permission->save();
         return redirect()->back()->with('success', 'Permission request has been rejected');
     }
+
+    // GK DIPAKE
 }

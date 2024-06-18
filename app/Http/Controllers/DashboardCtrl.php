@@ -10,7 +10,7 @@ class DashboardCtrl extends Controller
 {
     public function index()
     {
-        $absencesHistoryWithLimit = Absence::with('user')->orderBy('created_at', 'desc')->limit(10)->get();
+        $absencesHistoryWithLimit = Absence::with('employee')->orderBy('created_at', 'desc')->limit(10)->get();
         $totalKaryawan = Employee::count(['id']);
         $totalKaryawanLakilaki = Employee::where('jenis_kelamin', 'LAKI')->count(['id']);
         $totalKaryawanPerempuan = Employee::where('jenis_kelamin', 'PEREMPUAN')->count(['id']);

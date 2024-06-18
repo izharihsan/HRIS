@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
+use App\Models\Employee;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Models\Shift;
@@ -13,13 +15,14 @@ class ShiftCtrl extends Controller
     public function index()
     {
         $shifts = Shift::all();
-        return view('admin.timeoff.shift.view', compact('shifts'));
+        $branches = Branch::all();
+        return view('admin.timeoff.shift.view', compact('shifts', 'branches'));
     }
 
     public function schedules($id)
     {
-        $shifts = Shift::with('schedules')->find($id);
-        $users = User::all();
+        $shifts = Shift::with('schedules', 'branch')->find($id);
+        $users = Employee::where('branch_id', $shifts->branch_id)->get();
 
         // Custom order for days of the week
         $daysOrder = [
@@ -83,7 +86,7 @@ class ShiftCtrl extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'branch_id' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
         ]);
@@ -112,12 +115,26 @@ class ShiftCtrl extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
+            'branch_id' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
         ]);
 
-        Shift::find($id)->update($request->all());
+        $shift = Shift::find($id);
+
+        if ($shift->branch_id != $request->branch_id) {
+            Schedule::where('shift_id', $id)->delete();
+            $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            foreach ($days as $day) {
+                $schedule = new Schedule();
+                $schedule->shift_id = $shift->id;
+                $schedule->day = trim($day);  // Trim any potential whitespace
+                $schedule->save();
+            }
+            $shift->update($request->all());
+        } else {
+            $shift->update($request->all());
+        }
 
         return redirect()->back()->with('success', 'Shift updated successfully.');
     }

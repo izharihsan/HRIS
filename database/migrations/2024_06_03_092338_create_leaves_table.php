@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('hr_leaves', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('leave_type_id')->unsigned();
             $table->date('start_date');
-            $table->date('end_date');
-            $table->string('message');
-            $table->string('attachment');
+            $table->date('end_date')->nullable();
+            $table->string('message')->nullable();
+            $table->string('attachment')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected']);
             $table->string('status_message')->nullable();
+            $table->bigInteger('approved_by')->unsigned()->nullable();
             $table->date('approved_at')->nullable();
             $table->timestamps();
         });

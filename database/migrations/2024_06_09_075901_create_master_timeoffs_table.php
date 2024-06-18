@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('hr_master_timeoffs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->string('periode')->nullable();
+            $table->integer('kuota')->default(0);
+            $table->boolean('is_attachment_required')->default(false);
+            $table->integer('attachment_required_in_days')->default(0);
+            $table->string('status')->default('Aktif');
             $table->string('description')->nullable();
             $table->timestamps();
         });

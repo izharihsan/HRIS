@@ -22,11 +22,18 @@ class AuthCtrl extends Controller
             //     ], 401);
             // }
 
-            if (auth()->user()->status == 0) {
+            if (auth()->user()->status == 0 || auth()->user()->employee->status == 0) {
                 auth()->logout();
                 return response()->json([
                     'message' => 'Your account is not active.'
                 ], 401);
+            }
+
+            if (auth()->user()->employee == null) {
+                auth()->logout();
+                return response()->json([
+                    'message' => 'Employee data not found.'
+                ], 404);
             }
 
             // generate sanctum token

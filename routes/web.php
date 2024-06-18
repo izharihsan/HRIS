@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\admin\EmployeeCtrl;
+use App\Http\Controllers\admin\MasterCutiCtrl;
+use App\Http\Controllers\admin\PerusahaanCtrl;
 use App\Http\Controllers\admin\ScheduleCtrl;
 use App\Http\Controllers\admin\ShiftCtrl;
 use App\Http\Controllers\admin\TimeoffCtrl;
@@ -32,6 +35,26 @@ Route::post('/login', [AuthCtrl::class, 'login'])->name('login_process');
 
 Route::middleware(['auth'])->group(function () {
 
+    // BRANCH
+    Route::get('/branch', [PerusahaanCtrl::class, 'indexBranch'])->name('branch.list');
+    Route::post('/branch', [PerusahaanCtrl::class, 'storeBranch'])->name('branch.store');
+    Route::put('/branch/{id}', [PerusahaanCtrl::class, 'updateBranch'])->name('branch.update');
+    Route::delete('/branch/{id}', [PerusahaanCtrl::class, 'destroyBranch'])->name('branch.delete');
+
+    // JABATAN
+    Route::get('/jabatan', [PerusahaanCtrl::class, 'indexJabatan'])->name('jabatan.list');
+    Route::post('/jabatan', [PerusahaanCtrl::class, 'storeJabatan'])->name('jabatan.store');
+    Route::put('/jabatan/{id}', [PerusahaanCtrl::class, 'updateJabatan'])->name('jabatan.update');
+    Route::delete('/jabatan/{id}', [PerusahaanCtrl::class, 'destroyJabatan'])->name('jabatan.delete');
+
+    // EMPLOYEE
+    Route::get('/employee', [EmployeeCtrl::class, 'index'])->name('employee.list');
+    Route::get('/employee/{id}', [EmployeeCtrl::class, 'show'])->name('employee.detail');
+    Route::delete('/employee/{id}', [EmployeeCtrl::class, 'destroy'])->name('employee.delete');
+    Route::post('/employee/nonaktifkan/{id}', [EmployeeCtrl::class, 'nonaktifkan'])->name('employee.nonaktifkan');
+    Route::post('/employee/aktifkan/{id}', [EmployeeCtrl::class, 'aktifkan'])->name('employee.aktifkan');
+    Route::put('/employee/{id}', [EmployeeCtrl::class, 'update'])->name('employee.update');
+
     // TIME OFF
     Route::group(['prefix' => 'timeoff'], function () {
         Route::get('/attendance', [ControllersAttendanceController::class, 'index'])->name('attendance');
@@ -53,6 +76,12 @@ Route::middleware(['auth'])->group(function () {
 
         // all data
         // Route::get('/timeoffs', [TimeoffCtrl::class, 'allDataMerge'])->name('all_data_timeoff');
+
+        // MASTER CUTI
+        Route::get('/tipe-cuti', [MasterCutiCtrl::class, 'index'])->name('master.tipe_cuti');
+        Route::post('/tipe-cuti', [MasterCutiCtrl::class, 'store'])->name('master.tipe_cuti.store');
+        Route::put('/tipe-cuti/{id}', [MasterCutiCtrl::class, 'update'])->name('master.tipe_cuti.update');
+        Route::delete('/tipe-cuti/{id}', [MasterCutiCtrl::class, 'destroy'])->name('master.tipe_cuti.delete');
 
         // LEAVES
         Route::get('/leave', [TimeoffCtrl::class, 'indexLeave'])->name('leaves');

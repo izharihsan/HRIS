@@ -16,4 +16,9 @@ class Leave extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function tipe_cuti()
+    {
+        return $this->belongsTo(MasterTimeoff::class, 'leave_type_id');
+    }
 }

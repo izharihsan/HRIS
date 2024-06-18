@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('hr_shifts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->bigInteger('branch_id')->unsigned();
+            $table->string('name')->nullable();
             $table->time('start_time');
             $table->time('end_time');
             $table->timestamps();

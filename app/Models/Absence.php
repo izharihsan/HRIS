@@ -17,8 +17,8 @@ class Absence extends Model
         return $this->hasOne(Overtime::class, 'absence_id', 'id');
     }
 
-    public function user()
+    public function employee()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(Employee::class, 'user_id', 'id');
     }
 }

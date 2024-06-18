@@ -12,12 +12,20 @@ class Employee extends Model
     protected $table = 'mkr_karyawan';
     protected $guarded = [];
 
-    // handle province id to integer
     public $keyType = 'string';
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'karyawan_id');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
 
     public function province()
     {
-
         return $this->belongsTo(Province::class, 'province_id');
     }
 

@@ -1,12 +1,12 @@
-@extends('template.template', ['title' => 'Shifts', 'is_active' => true])
+@extends('template.template', ['title' => 'Schedule', 'is_active' => true])
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card p-3">
-            <h3>Shifts & Schedule</h3>
+            <h3>Schedules</h3>
             <hr>
             <div>
-                <h5>Shift Name: {{ $shifts->title }}</h5>
+                <h5>Branch Name: {{ $shifts->branch->lokasi }}</h5>
                 <h5>Start Time: {{ $shifts->start_time }}</h5>
                 <h5>End Time: {{ $shifts->end_time }}</h5>
 

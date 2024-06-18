@@ -4,16 +4,15 @@
     <!-- DataTable with Buttons -->
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card p-3">
-            <h3>Employee Leaves</h3>
-            <div class="card-datatable table-responsive pt-0">
-                <table class="datatables-basic table">
+            <h3>List Cuti</h3>
+            <div class="card-datatable table-responsive pt-0 mt-3">
+                <table class="datatables-basic table cell-border" id="datatables-basic">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Name</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Nama Karyawan</th>
+                            <th>Tipe Cuti</th>
+                            <th>Tanggal</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -24,8 +23,8 @@
                             <tr>
                                 <td>{{ $leave->id }}</td>
                                 <td>{{ $leave->user->name ?? '' }}</td>
-                                <td>{{ $leave->start_date }}</td>
-                                <td>{{ $leave->end_date }}</td>
+                                <td>{{ $leave->tipe_cuti->name ?? '' }}</td>
+                                <td>{{ Carbon\Carbon::parse($leave->start_date)->format('d M Y') }} {{ $leave->end_date != null ? ' s/d ' . Carbon\Carbon::parse($leave->end_date)->format('d M Y') : '' }}
                                 <td>
                                     @if ($leave->status == 'pending')
                                         <span class="badge p-1 bg-warning">Pending</span>

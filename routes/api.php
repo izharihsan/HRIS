@@ -41,8 +41,11 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::post('profile/update-contact', [EmployeeCtrl::class, 'updateProfileContact']);
 
     Route::get('attendance', [AttendanceCtrl::class, 'getCurrentAttendance']);
+    Route::get('attendance/history', [AttendanceCtrl::class, 'getAttendanceHistory']);
     Route::post('clock-in', [AttendanceCtrl::class, 'clock_in']);
     Route::post('clock-out', [AttendanceCtrl::class, 'clock_out']);
+    Route::post('forgot-clock-in', [AttendanceCtrl::class, 'forgot_clock_in']);
+    Route::post('forgot-clock-out', [AttendanceCtrl::class, 'forgot_clock_out']);
 
     // overtime
     Route::get('overtime', [OvertimeCtrl::class, 'getUserOvertime']);
@@ -51,9 +54,11 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::post('overtime', [OvertimeCtrl::class, 'submit_overtime']);
 
     // leave
+    Route::get('leave/type', [TimeoffCtrl::class, 'tipe_cuti']);
     Route::get('leave', [TimeoffCtrl::class, 'getUserLeaves']);
     Route::post('leave', [TimeoffCtrl::class, 'submit_leave']);
 
+    // GK DIPAKE
     // sick leave
     Route::post('sick-leave', [TimeoffCtrl::class, 'submit_sick_leave']);
     Route::get('sick-leave', [TimeoffCtrl::class, 'getUserSickLeaves']);
@@ -61,6 +66,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // permission
     Route::post('permission', [TimeoffCtrl::class, 'submit_permission']);
     Route::get('permission', [TimeoffCtrl::class, 'getUserPermissions']);
+    // GK DIPAKE
 
     // ADDRESS API
     Route::get('provinces', [AddressCtrl::class, 'getProvinces']);
