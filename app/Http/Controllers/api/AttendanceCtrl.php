@@ -26,7 +26,7 @@ class AttendanceCtrl extends Controller
     {
         // get the latest in today absence
         $absence = Absence::where('user_id', auth()->user()->employee->id)
-            ->whereDate('timestamp', Carbon::today())
+            ->whereDate('tanggal', Carbon::today())
             ->latest()
             ->first();
         return response()->json($absence, 200);
@@ -90,6 +90,7 @@ class AttendanceCtrl extends Controller
             $absence->face_recognition = $face_recognition_name;
             $absence->start_time = $request->start_time;
             $absence->late = $late;
+            $absence->tanggal = Carbon::today();
             $absence->save();
 
             return response()->json(['message' => 'Absence recorded successfully'], 201);
@@ -135,6 +136,7 @@ class AttendanceCtrl extends Controller
 
                 return response()->json(['message' => 'Absence recorded successfully'], 200);
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 return response()->json(['message' => 'An error occurred'], 500);
             }
         } else {
@@ -145,18 +147,35 @@ class AttendanceCtrl extends Controller
     public function forgot_clock_in(Request $request)
     {
         try {
-            $reqTanggal = Carbon::parse($request->tanggal);
+            $days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            $day = $days[Carbon::parse($request->tanggal)->dayOfWeek];
+
             $userId = auth()->user()->employee->id;
+            $schedule = Schedule::with('shift')
+                ->where('day', '=', $day)
+                ->where('user_ids', 'like', "%,$userId")
+                ->orWhere('user_ids', 'like', "%,$userId,%")
+                ->orWhere('user_ids', 'like', "$userId,%")
+                ->first();
+
+            // return response()->json(['request' => $request->all(), 'hari' => $day, 'data' => $schedule], 200);
+
+            if (!$schedule) {
+                return throw new \Exception('You are not scheduled to work today');
+            }
+
+            $userId = auth()->user()->employee->id;
+            $face_recognition_name = null;
 
             $absence = new Absence();
             $absence->user_id = auth()->user()->employee->id;
             $absence->type = 'forgot_clock_in';
             $absence->timestamp = Carbon::now();
-            $absence->tanggal = $reqTanggal;
-            $absence->lat = $request->lat ?? '';
-            $absence->lng = $request->lng ?? '';
-            $absence->proof_image = $proof_image_name ?? '';
-            $absence->face_recognition = $face_recognition_name ?? '';
+            $absence->tanggal = $request->tanggal;
+            $absence->lat = $request->lat ?? ''; // optional
+            $absence->lng = $request->lng ?? ''; // optional
+            $absence->proof_image = $proof_image_name ?? ''; // optional
+            $absence->face_recognition = $face_recognition_name ?? ''; // optional
             $absence->start_time = $request->start_time;
             $absence->late = true;
             $absence->save();
@@ -200,8 +219,9 @@ class AttendanceCtrl extends Controller
                     // 'face_recognition' => $request->face_recognition
                 ]);
 
-                return response()->json(['message' => 'Absence recorded successfully'], 200);
+                return response()->json(['message' => 'Absence recorded successfully'], 201);
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 return response()->json(['message' => 'An error occurred'], 500);
             }
         } else {
@@ -224,7 +244,7 @@ class AttendanceCtrl extends Controller
         }
 
         $absence = Absence::where('user_id', auth()->user()->employee->id)
-            ->whereDate('timestamp', Carbon::today())
+            ->whereDate('tanggal', Carbon::today())
             ->where('type', 'forgot_clock_in')
             ->latest()
             ->first();
