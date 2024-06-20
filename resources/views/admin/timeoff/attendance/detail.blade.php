@@ -24,6 +24,7 @@
                 <p><strong>Late:</strong> {{ $absence->late ? 'Yes' : 'No' }}</p>
                 <p><strong>Check In Time:</strong> {{ $absence->start_time }}</p>
                 <p><strong>Check Out Time:</strong> {{ $absence->end_time }}</p>
+                <p><strong>Radius (km): </strong> <span id="radiusKm"></span></p>
                 <p><strong>Proof Image:</strong>
                 </p>
                 @if ($absence->proof_image)
@@ -62,5 +63,32 @@
                 .bindPopup('Location of the attendance')
                 .openPopup();
         });
+
+        function degrees_to_radians(degrees) {
+            // Store the value of pi.
+            var pi = Math.PI;
+            // Multiply degrees by pi divided by 180 to convert to radians.
+            return degrees * (pi / 180);
+        }
+
+        var lat1 = {{ $absence->lat }};
+        var lng1 = {{ $absence->lng }};
+        var lat2 = {{ $absence->employee->branch->lat }};
+        var lng2 = {{ $absence->employee->branch->long }};
+
+        // Calculate the distance between two points
+        var R = 6371; // Radius of the earth in km
+        var dLat = degrees_to_radians(lat2 - lat1);
+        var dLon = degrees_to_radians(lng2 - lng1);
+        var lat1 = degrees_to_radians(lat1);
+        var lat2 = degrees_to_radians(lat2);
+
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c; // Distance in km
+
+        // Display the distance between two points
+        document.getElementById('radiusKm').innerHTML = d.toFixed(2) + ' km';
     </script>
 @endsection

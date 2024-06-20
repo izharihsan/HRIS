@@ -119,6 +119,16 @@
                                                             <input type="text" class="form-control" id="hari_libur" name="hari_libur" value="{{ $branch->hari_libur }}" required>
                                                         </div>
 
+                                                        {{-- input latitude and longtitude --}}
+                                                        <div class="mb-3">
+                                                            <label for="lat" class="form-label">Latitude</label>
+                                                            <input type="text" class="form-control" id="lat" name="lat" value="{{ $branch->lat }}" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="long" class="form-label">Longitude</label>
+                                                            <input type="text" class="form-control" id="long" name="long" value="{{ $branch->long }}" required>
+                                                        </div>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
@@ -225,7 +235,15 @@
                             <input type="text" class="form-control" id="hari_libur" name="hari_libur" required>
                         </div>
 
-
+                        {{-- input latitude and longtitude --}}
+                        <div class="mb-3">
+                            <label for="lat" class="form-label">Latitude</label>
+                            <input type="text" class="form-control" id="lat" name="lat" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="long" class="form-label">Longitude</label>
+                            <input type="text" class="form-control" id="long" name="long" required>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
