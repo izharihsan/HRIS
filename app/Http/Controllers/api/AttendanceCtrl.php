@@ -178,6 +178,7 @@ class AttendanceCtrl extends Controller
             $absence->face_recognition = $face_recognition_name ?? ''; // optional
             $absence->start_time = $request->start_time;
             $absence->late = true;
+            $absence->reason = $request->reason ?? ''; // optional
             $absence->save();
 
             return response()->json(['message' => 'Lupa absen masuk recorded successfully'], 201);
@@ -213,6 +214,7 @@ class AttendanceCtrl extends Controller
                 $find_absence->update([
                     'type' => 'forgot_clock_out',
                     'end_time' => $request->end_time,
+                    'reason' => $request->reason ?? '',
                     // 'lat' => $request->lat,
                     // 'lng' => $request->lng,
                     // 'proof_image' => $request->proof_image,

@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
 
     // EMPLOYEE
     Route::get('/employee', [EmployeeCtrl::class, 'index'])->name('employee.list');
+    Route::get('/employee/create', [EmployeeCtrl::class, 'create'])->name('employee.create');
+    Route::post('/employee/store', [EmployeeCtrl::class, 'storeEmployee'])->name('employee.store');
     Route::get('/employee/{id}', [EmployeeCtrl::class, 'show'])->name('employee.detail');
     Route::delete('/employee/{id}', [EmployeeCtrl::class, 'destroy'])->name('employee.delete');
     Route::post('/employee/nonaktifkan/{id}', [EmployeeCtrl::class, 'nonaktifkan'])->name('employee.nonaktifkan');

@@ -28,6 +28,11 @@
     <script src="/assets/js/config.js"></script>
     <style>
         /* adjust button pagination in datatables */
+        .menu-item.active {
+            /* background-color: #C1121F;
+            background: #C1121F; */
+            /* color: #C1121F; */
+        }
     </style>
 </head>
 

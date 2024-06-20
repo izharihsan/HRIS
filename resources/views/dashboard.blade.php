@@ -83,13 +83,13 @@
                                         <td>{{ $attendance->employee->name ?? '' }}</td>
                                         <td>
                                             @if ($attendance->type == 'clock_in')
-                                                <span>Clock In</span>
+                                                <span>Check In</span>
                                             @elseif ($attendance->type == 'forgot_clock_in')
-                                                <span>Forgot Clock In</span>
+                                                <span>Forgot Check In</span>
                                             @elseif ($attendance->type == 'clock_out')
-                                                <span>Clock Out</span>
+                                                <span>Check Out</span>
                                             @else
-                                                <span>Forgot Clock Out</span>
+                                                <span>Forgot Check Out</span>
                                             @endif
 
                                             <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">

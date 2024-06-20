@@ -5,7 +5,7 @@
         <div class="card p-3">
             <div class="d-flex justify-content-between">
                 <h3>Employee List</h3>
-                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-record"><i class="fas fa-plus me-1"></i> New Employee</a>
+                <a href="{{ route('employee.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus me-1"></i> New Employee</a>
             </div>
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible mt-3" role="alert">

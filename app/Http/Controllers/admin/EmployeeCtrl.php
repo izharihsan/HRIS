@@ -60,6 +60,10 @@ class EmployeeCtrl extends Controller
     public function update(Request $request, $id)
     {
         $employee = Employee::find($id);
+        $request['gaji_pokok'] = str_replace('.', '', $request['gaji_pokok']);
+        $request['gaji_pokok'] = str_replace('Rp', '', $request['gaji_pokok']);
+        $request['gaji_pokok'] = str_replace(' ', '', $request['gaji_pokok']);
+
         $employee->update($request->except('image'));
 
         if ($request->hasFile('image')) {
@@ -70,5 +74,46 @@ class EmployeeCtrl extends Controller
         }
 
         return redirect()->back()->with('success', 'Data berhasil diupdate');
+    }
+
+    public function create()
+    {
+        $branches = Branch::all();
+        return view('admin.employee.create', compact('branches'));
+    }
+
+    public function storeEmployee(Request $request)
+    {
+        $request['gaji_pokok'] = str_replace('.', '', $request['gaji_pokok']);
+        $request['gaji_pokok'] = str_replace('Rp', '', $request['gaji_pokok']);
+        $request['gaji_pokok'] = str_replace(' ', '', $request['gaji_pokok']);
+        // dd($request->all());
+        $employee = Employee::create($request->except('image', 'password', '_token'));
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/user'), $filename);
+            $userCreate = User::create([
+                'karyawan_id' => $employee->id,
+                'role_id' => 5,
+                'username' => $employee->email,
+                'email' => $employee->email,
+                'password' => bcrypt($request->password),
+                'image' => '/image/user/' . $filename,
+                'branch_id' => $request->branch_id,
+                'status' => $request->status,
+                'password_masked' => $request->password,
+                'nama_panggilan' => $employee->name,
+                'name' => $employee->name,
+            ]);
+
+            if (!$userCreate) {
+                $employee->delete();
+                return redirect()->back()->with('error', 'Gagal membuat user');
+            }
+        }
+
+        return redirect()->route('employee.list')->with('success', 'Data berhasil ditambahkan');
     }
 }

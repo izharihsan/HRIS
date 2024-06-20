@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('face_recognition');
             $table->time('start_time');
             $table->time('end_time');
+            $table->text('reason')->nullable();
             $table->timestamps();
         });
     }

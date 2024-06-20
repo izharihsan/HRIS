@@ -7,7 +7,19 @@
             {{-- Display employee attendance details using the $absence variable --}}
             <div class="attendance-details">
                 <p><strong>Employee Name:</strong> {{ $absence->employee->name }}</p>
-                <p><strong>Status Attend:</strong> <span class = "badge bg-{{ $absence->type == 'clock_out' ? 'success' : 'primary' }}">{{ $absence->type == 'clock_out' ? 'Clock Out' : 'Clock In' }}</span>
+                <p><strong>Status Attend:</strong>
+                    @if ($absence->type == 'clock_in')
+                        <span>Check In</span>
+                    @elseif ($absence->type == 'forgot_clock_in')
+                        <span>Forgot Check In</span>
+                    @elseif ($absence->type == 'clock_out')
+                        <span>Check Out</span>
+                    @else
+                        <span>Forgot Check Out</span>
+                    @endif
+                    <span class="badge p-1 bg-{{ $absence->late ? 'danger' : 'success' }}">
+                        {{ $absence->late ? 'Late' : 'Present' }}
+                    </span>
                 </p>
                 <p><strong>Late:</strong> {{ $absence->late ? 'Yes' : 'No' }}</p>
                 <p><strong>Check In Time:</strong> {{ $absence->start_time }}</p>
