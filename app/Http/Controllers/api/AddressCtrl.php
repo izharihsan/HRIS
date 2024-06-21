@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\District;
 use App\Models\Districts;
 use App\Models\Village;
+use Illuminate\Support\Facades\Log;
 
 class AddressCtrl extends Controller
 {
@@ -21,6 +22,7 @@ class AddressCtrl extends Controller
     public function getCities($province_id)
     {
         $cities = City::where('province_id', $province_id)->get(['id', 'name']);
+        Log::info($cities);
         return response()->json($cities, 200);
     }
 

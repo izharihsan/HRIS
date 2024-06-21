@@ -43,4 +43,13 @@ class Employee extends Model
     {
         return $this->belongsTo(Village::class, 'village_id');
     }
+
+    // handle postgre id increment when insert new data
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->id = Employee::max('id') + 1;
+        });
+    }
 }

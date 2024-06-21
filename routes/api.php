@@ -29,6 +29,11 @@ Route::middleware('auth:sanctum')->get('v1/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('provinces', [AddressCtrl::class, 'getProvinces']);
+Route::get('cities/{province_id}', [AddressCtrl::class, 'getCities']);
+Route::get('districts/{city_id}', [AddressCtrl::class, 'getDistricts']);
+Route::get('villages/{district_id}', [AddressCtrl::class, 'getVillages']);
+
 // MOBILE APIs
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // AUTH

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card p-3">
-            <h3>Tambah Karyawan</h3>
+            <h3>Form Karyawan Baru</h3>
 
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible mt-3" role="alert">
@@ -118,6 +118,37 @@
                         </div>
                     </div>
 
+                    {{-- select2 provinces, cities, districts, villages --}}
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="province_id" class="form-label mb-0">Provinsi</label>
+                            <select class="form-select" id="province_id" name="province_id">
+                                <option value="">Pilih Provinsi</option>
+                                @foreach ($provinces as $province)
+                                    <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="city_id" class="form-label mb-0">Kota/Kabupaten</label>
+                            <select class="form-select" id="city_id" name="city_id">
+                                <option value="">Pilih Kota/Kabupaten</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="district_id" class="form-label mb-0">Kecamatan</label>
+                            <select class="form-select" id="district_id" name="district_id">
+                                <option value="">Pilih Kecamatan</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="village_id" class="form-label mb-0">Kelurahan/Desa</label>
+                            <select class="form-select" id="village_id" name="village_id">
+                                <option value="">Pilih Kelurahan/Desa</option>
+                            </select>
+                        </div>
+                    </div>
+
                     {{-- alamat textarea --}}
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
@@ -175,6 +206,59 @@
                     }
                     reader.readAsDataURL(file);
                 }
+            });
+
+            // handle select2 provinces, cities, districts, villages
+            const province = document.querySelector('#province_id');
+            const city = document.getElementById('city_id');
+            const district = document.querySelector('#district_id');
+            const village = document.querySelector('#village_id');
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            province.addEventListener('change', function() {
+                console.log("TEST");
+                fetch(`/api/cities/${this.value}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        city.innerHTML = '<option value="">Pilih Kota/Kabupaten</option>';
+                        district.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                        village.innerHTML = '<option value="">Pilih Kelurahan/Desa</option>';
+
+                        data.forEach(city => {
+                            console.log(city.id, city.name);
+                            $('#city_id').append(`<option value="${city.id}">${city.name}</option>`);
+                        });
+                    });
+            });
+
+            city.addEventListener('change', function() {
+                fetch(`/api/districts/${this.value}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        district.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                        village.innerHTML = '<option value="">Pilih Kelurahan/Desa</option>';
+
+                        data.forEach(district => {
+                            $('#district_id').append(`<option value="${district.id}">${district.name}</option>`);
+                        });
+                    });
+            });
+
+            district.addEventListener('change', function() {
+                fetch(`/api/villages/${this.value}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        village.innerHTML = '<option value="">Pilih Kelurahan/Desa</option>';
+
+                        data.forEach(village => {
+                            $('#village_id').append(`<option value="${village.id}">${village.name}</option>`);
+                        });
+                    });
             });
         </script>
     @endsection

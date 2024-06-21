@@ -4,9 +4,13 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
+use App\Models\City;
+use App\Models\Districts;
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\Province;
 use App\Models\User;
+use App\Models\Village;
 
 class EmployeeCtrl extends Controller
 {
@@ -79,7 +83,12 @@ class EmployeeCtrl extends Controller
     public function create()
     {
         $branches = Branch::all();
-        return view('admin.employee.create', compact('branches'));
+        $provinces = Province::all();
+        $cities = City::all();
+        $districts = Districts::all();
+        $villages = Village::all();
+
+        return view('admin.employee.create', compact('branches', 'provinces', 'cities', 'districts', 'villages'));
     }
 
     public function storeEmployee(Request $request)
@@ -87,7 +96,7 @@ class EmployeeCtrl extends Controller
         $request['gaji_pokok'] = str_replace('.', '', $request['gaji_pokok']);
         $request['gaji_pokok'] = str_replace('Rp', '', $request['gaji_pokok']);
         $request['gaji_pokok'] = str_replace(' ', '', $request['gaji_pokok']);
-        // dd($request->all());
+
         $employee = Employee::create($request->except('image', 'password', '_token'));
 
         if ($request->hasFile('image')) {

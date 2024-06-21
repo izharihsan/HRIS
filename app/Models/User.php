@@ -44,4 +44,18 @@ class User extends Authenticatable
     {
         return $this->hasOne(Employee::class, 'id', 'karyawan_id');
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->id = User::max('id') + 1;
+        });
+    }
 }
