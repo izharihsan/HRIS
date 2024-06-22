@@ -99,28 +99,31 @@ class EmployeeCtrl extends Controller
 
         $employee = Employee::create($request->except('image', 'password', '_token'));
 
+        $filename = null;
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('image/user'), $filename);
-            $userCreate = User::create([
-                'karyawan_id' => $employee->id,
-                'role_id' => 5,
-                'username' => $employee->email,
-                'email' => $employee->email,
-                'password' => bcrypt($request->password),
-                'image' => '/image/user/' . $filename,
-                'branch_id' => $request->branch_id,
-                'status' => $request->status,
-                'password_masked' => $request->password,
-                'nama_panggilan' => $employee->name,
-                'name' => $employee->name,
-            ]);
+        }
 
-            if (!$userCreate) {
-                $employee->delete();
-                return redirect()->back()->with('error', 'Gagal membuat user');
-            }
+        $userCreate = User::create([
+            'karyawan_id' => $employee->id,
+            'role_id' => 5,
+            'username' => $employee->email,
+            'email' => $employee->email,
+            'password' => bcrypt($request->password),
+            'image' => '/image/user/' . $filename,
+            'branch_id' => $request->branch_id,
+            'status' => $request->status,
+            'password_masked' => $request->password,
+            'nama_panggilan' => $employee->name,
+            'name' => $employee->name,
+        ]);
+
+        if (!$userCreate) {
+            $employee->delete();
+            return redirect()->back()->with('error', 'Gagal membuat user');
         }
 
         return redirect()->route('employee.list')->with('success', 'Data berhasil ditambahkan');
