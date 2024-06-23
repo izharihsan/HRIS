@@ -289,14 +289,8 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        {{-- <img src="/assets/img/avatars/1.png" alt class="h-auto rounded-circle" /> --}}
-
-
-
+                                                        <img src="/assets/img/logo.png" alt class="h-auto rounded-circle" />
                                                     </div>
-
-
-
                                                 </div>
                                                 <div class="flex-grow-1">
                                                     <span class="fw-medium d-block">{{ auth()->user()->name }}</span>
