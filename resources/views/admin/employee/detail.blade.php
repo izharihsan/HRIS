@@ -42,16 +42,121 @@
                         <!-- Dokumen Tab -->
                         <div class="tab-pane fade" id="dokumen" role="tabpanel" aria-labelledby="dokumen-tab">
                             <!-- Add respective tables or forms for family and education -->
-                            <button class="btn btn-primary mt-3" onclick="addDocument()">Tambah Dokumen</button>
+                            <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addDocumentModal">Tambah Dokumen</button>
+
+                            @if (count($documents) > 0)
+                                <table class="table mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Dokumen</th>
+                                            <th>Dokumen</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($documents as $document)
+                                            <tr>
+                                                <td>{{ $document->name }}</td>
+                                                <td>
+                                                    <a href="{{ asset('image/employee_document/' . $document->attachment) }}" target="_blank">Lihat Dokumen</a>
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('employee.document.delete', $document->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <p></p>
+                            @endif
                         </div>
                         <div class="tab-pane fade" id="pendidikan" role="tabpanel" aria-labelledby="pendidikan-tab">
-                            <button class="btn btn-primary mt-3" onclick="addEducation()">Tambah Pendidikan</button>
-                            <!-- Add respective tables or forms for family and education -->
+                            <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addEducationModal">Tambah Pendidikan</button>
+
+                            @if (count($educations) > 0)
+                                <table class="table mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th>Institute</th>
+                                            <th>Major</th>
+                                            <th>Degree</th>
+                                            <th>Year</th>
+                                            <th>Attachment</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($educations as $education)
+                                            <tr>
+                                                <td>{{ $education->institute }}</td>
+                                                <td>{{ $education->major }}</td>
+                                                <td>{{ $education->degree }}</td>
+                                                <td>{{ $education->year }}</td>
+                                                <td>
+                                                    <a href="{{ asset('image/employee_education/' . $education->attachment) }}" target="_blank">Lihat Dokumen</a>
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('employee.education.delete', $education->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <p></p>
+                            @endif
                         </div>
 
                         <div class="tab-pane fade" id="keluarga" role="tabpanel" aria-labelledby="keluarga-tab">
-                            <button class="btn btn-primary mt-3" onclick="addFamily()">Tambah Keluarga</button>
-                            <!-- Add respective tables or forms for family and education -->
+                            <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addFamilyModal">Tambah Keluarga</button>
+
+                            @if (count($families) > 0)
+                                <table class="table mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Hubungan</th>
+                                            <th>Kontak</th>
+                                            <th>Alamat</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($families as $family)
+                                            <tr>
+                                                <td>{{ $family->name }}</td>
+                                                <td>{{ $family->relation }}</td>
+                                                <td>{{ $family->contact }}</td>
+                                                <td>{{ $family->address }}</td>
+                                                <td>
+                                                    <form action="{{ route('employee.family.delete', $family->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <p></p>
+                            @endif
                         </div>
 
                     </div>
@@ -84,6 +189,116 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    {{-- modal add document --}}
+    <div class="modal fade" id="addDocumentModal" tabindex="-1" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('employee.document.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addDocumentModalLabel">Tambah Dokumen</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Document</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="attachment" class="form-label">Attachment</label>
+                            <input type="file" class="form-control" id="attachment" name="attachment" required accept="application/pdf, image/*">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Tambah Dokumen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal add pendidikan, input institute, major, degree, year, attachment --}}
+    <div class="modal fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('employee.education.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEducationModalLabel">Tambah Pendidikan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                        <div class="mb-3">
+                            <label for="institute" class="form-label">Institute</label>
+                            <input type="text" class="form-control" id="institute" name="institute" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="major" class="form-label">Major</label>
+                            <input type="text" class="form-control" id="major" name="major" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="degree" class="form-label">Degree</label>
+                            <input type="text" class="form-control" id="degree" name="degree" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="year" class="form-label">Year</label>
+                            <input type="text" class="form-control" id="year" name="year" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="attachment" class="form-label">Attachment</label>
+                            <input type="file" class="form-control" id="attachment" name="attachment" required accept="application/pdf, image/*">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Tambah Pendidikan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal add keluarga, input name, relation, contact, address textarea --}}
+    <div class="modal fade" id="addFamilyModal" tabindex="-1" aria-labelledby="addFamilyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('employee.family.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addFamilyModalLabel">Tambah Keluarga</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="relation" class="form-label">Hubungan</label>
+                            <input type="text" class="form-control" id="relation" name="relation" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact" class="form-label">Kontak</label>
+                            <input type="text" class="form-control" id="contact" name="contact" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Alamat</label>
+                            <textarea class="form-control" id="address" name="address" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Tambah Keluarga</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

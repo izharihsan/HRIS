@@ -57,6 +57,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/employee/aktifkan/{id}', [EmployeeCtrl::class, 'aktifkan'])->name('employee.aktifkan');
     Route::put('/employee/{id}', [EmployeeCtrl::class, 'update'])->name('employee.update');
 
+    // EMPLOYEE DOCUMENT
+    Route::post('/employee/document', [EmployeeCtrl::class, 'storeDocument'])->name('employee.document.store');
+    Route::delete('/employee/document/{id}', [EmployeeCtrl::class, 'destroyDocument'])->name('employee.document.delete');
+    Route::put('/employee/document/{id}', [EmployeeCtrl::class, 'updateDocument'])->name('employee.document.update');
+
+    // EMPLOYEE FAMILY
+    Route::post('/employee/family', [EmployeeCtrl::class, 'storeFamily'])->name('employee.family.store');
+    Route::delete('/employee/family/{id}', [EmployeeCtrl::class, 'destroyFamily'])->name('employee.family.delete');
+    Route::put('/employee/family/{id}', [EmployeeCtrl::class, 'updateFamily'])->name('employee.family.update');
+
+    // EMPLOYEE EDUCATION
+    Route::post('/employee/education', [EmployeeCtrl::class, 'storeEducation'])->name('employee.education.store');
+    Route::delete('/employee/education/{id}', [EmployeeCtrl::class, 'destroyEducation'])->name('employee.education.delete');
+    Route::put('/employee/education/{id}', [EmployeeCtrl::class, 'updateEducation'])->name('employee.education.update');
+
     // TIME OFF
     Route::group(['prefix' => 'timeoff'], function () {
         Route::get('/attendance', [ControllersAttendanceController::class, 'index'])->name('attendance');

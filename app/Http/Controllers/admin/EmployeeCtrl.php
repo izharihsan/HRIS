@@ -11,6 +11,9 @@ use App\Models\Employee;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\Village;
+use App\Models\EmployeeDocument;
+use App\Models\EmployeeFamily;
+use App\Models\EmployeeEducation;
 
 class EmployeeCtrl extends Controller
 {
@@ -24,9 +27,13 @@ class EmployeeCtrl extends Controller
     {
         $employee = Employee::find($id);
         $branches = Branch::all();
-        return view('admin.employee.detail', compact('employee', 'branches'));
+        $documents = EmployeeDocument::where('employee_id', $id)->get();
+        $families = EmployeeFamily::where('employee_id', $id)->get();
+        $educations = EmployeeEducation::where('employee_id', $id)->get();
+        return view('admin.employee.detail', compact('employee', 'branches', 'documents', 'families', 'educations'));
     }
 
+    // NOT USED
     public function destroy($id)
     {
         $employee = Employee::find($id);
@@ -127,5 +134,127 @@ class EmployeeCtrl extends Controller
         }
 
         return redirect()->route('employee.list')->with('success', 'Data berhasil ditambahkan');
+    }
+
+    // store, update, destory employee documents
+    public function storeDocument(Request $request)
+    {
+
+        $filename = null;
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_document'), $filename);
+        }
+
+        $request['attachment'] = $filename;
+        $request['employee_id'] = $request->employee_id;
+        $request['type'] = 'Document';
+
+        EmployeeDocument::create([
+            'employee_id' => $request->employee_id,
+            'type' => 'Document',
+            'attachment' => $filename,
+            'name' => $request->name,
+        ]);
+
+        return redirect()->back()->with('success', 'Dokumen berhasil ditambahkan')->with('pageIsActive', 'document');
+    }
+
+    public function updateDocument(Request $request, $id)
+    {
+        $employeeDocument = EmployeeDocument::find($id);
+
+        $filename = null;
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_document'), $filename);
+        }
+
+        $request['attachment'] = $filename;
+
+        $employeeDocument->update($request->all());
+
+        return redirect()->back()->with('success', 'Dokumen berhasil diupdate')->with('pageIsActive', 'document');
+    }
+
+    public function destroyDocument($id)
+    {
+        $employeeDocument = EmployeeDocument::find($id);
+        unlink(public_path('image/employee_document/' . $employeeDocument->attachment));
+        $employeeDocument->delete();
+
+        return redirect()->back()->with('success', 'Dokumen berhasil dihapus')->with('pageIsActive', 'document');
+    }
+
+    // store, update, destory employee education
+    public function storeEducation(Request $request)
+    {
+
+        $filename = null;
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_education'), $filename);
+        }
+
+        $request['attachment'] = $filename;
+
+        EmployeeEducation::create([
+            'employee_id' => $request->employee_id,
+            'institute' => $request->institute,
+            'major' => $request->major,
+            'degree' => $request->degree,
+            'year' => $request->year,
+            'attachment' => $filename,
+        ]);
+
+        return redirect()->back()->with('success', 'Pendidikan berhasil ditambahkan')->with('pageIsActive', 'education');
+    }
+
+    public function updateEducation(Request $request, $id)
+    {
+        $employeeEducation = EmployeeEducation::find($id);
+        $employeeEducation->update($request->all());
+
+        return redirect()->back()->with('success', 'Pendidikan berhasil diupdate')->with('pageIsActive', 'education');
+    }
+
+    public function destroyEducation($id)
+    {
+        $employeeEducation = EmployeeEducation::find($id);
+        unlink(public_path('image/employee_education/' . $employeeEducation->attachment));
+        $employeeEducation->delete();
+
+        return redirect()->back()->with('success', 'Pendidikan berhasil dihapus')->with('pageIsActive', 'education');
+    }
+
+    // store, update, destory employee family
+
+    public function storeFamily(Request $request)
+    {
+        EmployeeFamily::create($request->except('_token'));
+
+        return redirect()->back()->with('success', 'Keluarga berhasil ditambahkan')->with('pageIsActive', 'family');
+    }
+
+    public function updateFamily(Request $request, $id)
+    {
+        $employeeFamily = EmployeeFamily::find($id);
+        $employeeFamily->update($request->all());
+
+        return redirect()->back()->with('success', 'Keluarga berhasil diupdate')->with('pageIsActive', 'family');
+    }
+
+    public function destroyFamily($id)
+    {
+        $employeeFamily = EmployeeFamily::find($id);
+        $employeeFamily->delete();
+
+        return redirect()->back()->with('success', 'Keluarga berhasil dihapus')->with('pageIsActive', 'family');
     }
 }
