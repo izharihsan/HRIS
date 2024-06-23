@@ -7,8 +7,7 @@
     <title>{{ env('APP_NAME') }} - {{ $title }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="" />
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('/assets') }}/img/favicon/trans.png" />
     <link rel="stylesheet" href="/assets/vendor/fonts/fontawesome.css" />
     <link rel="stylesheet" href="/assets/vendor/fonts/tabler-icons.css" />
     <link rel="stylesheet" href="/assets/vendor/fonts/flag-icons.css" />
@@ -35,6 +34,11 @@
             /* color: #C1121F; */
         }
     </style>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -45,7 +49,7 @@
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
                     <a href="/" class="app-brand-link">
-                        <span class="app-brand-logo demo">
+                        {{-- <span class="app-brand-logo demo">
                             <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
@@ -55,8 +59,8 @@
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
                                     fill="#C1121F" />
                             </svg>
-                        </span>
-                        <span class="app-brand-text demo menu-text fw-bold">HRIS Amore</span>
+                        </span> --}}
+                        <span class="app-brand-text demo menu-text fw-bold">AMORE PUNYA</span>
                     </a>
 
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -275,7 +279,8 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="/assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                                        <img src="/assets/img/logo.png" alt class="h-auto rounded-circle" />
+
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -284,7 +289,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="/assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                                                        <img src="/assets/img/logo.png" alt class="h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">

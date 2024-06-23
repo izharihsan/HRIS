@@ -5,12 +5,13 @@
         <h4 class="mb-3"><span class="fw-light">Dashboards</h4>
         <!-- Card Border Shadow -->
         <div class="row">
-            <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card card-border-shadow-primary">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2 pb-1">
                             <div class="avatar me-2">
-                                <span class="avatar-initial rounded bg-label-primary"><i class="ti ti-users-group ti-md"></i></span>
+                                <span class="avatar-initial rounded bg-label-primary"><i
+                                        class="ti ti-users-group ti-md"></i></span>
                             </div>
                             <h4 class="ms-1 mb-0">{{ $totalKaryawan }}</h4>
                         </div>
@@ -18,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card card-border-shadow-info">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2 pb-1">
@@ -31,12 +32,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card card-border-shadow-warning">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2 pb-1">
                             <div class="avatar me-2">
-                                <span class="avatar-initial rounded bg-label-warning"><i class="ti ti-woman ti-md"></i></span>
+                                <span class="avatar-initial rounded bg-label-warning"><i
+                                        class="ti ti-woman ti-md"></i></span>
                             </div>
                             <h4 class="ms-1 mb-0">{{ $totalKaryawanPerempuan }}</h4>
                         </div>
@@ -54,20 +56,11 @@
                         <div class="card-title mb-0">
                             <h5 class="m-0 me-2">History Absensi</h5>
                         </div>
-                        {{-- <div class="dropdown">
-                            <button class="btn p-0" type="button" id="routeVehicles" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="ti ti-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="routeVehicles">
-                                <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                            </div>
-                        </div> --}}
                     </div>
+
                     <div class="card-datatable table-responsive">
-                        <table class="table">
-                            <thead class="border-top">
+                        <table class="table table-hover">
+                            <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
@@ -99,7 +92,8 @@
                                         <td>{{ $attendance->timestamp }}</td>
                                         {{-- <td>{{ $attendance->created_at }}</td> --}}
                                         <td>
-                                            <a href="{{ route('attendance.detail', $attendance->id) }}" class="btn btn-sm btn-outline-primary">Detail</a>
+                                            <a href="{{ route('attendance.detail', $attendance->id) }}"
+                                                class="btn btn-sm btn-outline-primary">Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach
