@@ -10,6 +10,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -90,16 +92,16 @@
 
 <body>
     <!-- <img class="wave" src="img/wave.png"> -->
-    {{-- @if ($errors->any()) --}}
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            asdasdads
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-{{-- @endif --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <center><b>{{ $error }}</b></center>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container">
         <div class="img">
             <img src="{{ asset('/assets') }}/img/bg.svg">
@@ -108,10 +110,10 @@
 
 
         <div class="login-content">
-                <form id="formAuthentication" class="row g-3" action="{{ route('login_process') }}" method="POST">
+            <form id="formAuthentication" class="row g-3" action="{{ route('login_process') }}" method="POST">
                 @csrf
                 <img src="{{ asset('/assets') }}/img/avatar.svg">
-                <h3 class="title">Selamat Datang di HRIS AMORE</h3>
+                <h4 class="mb-1 pt-2">Welcome to {{ env('APP_NAME') }} Punya! 👋</h4>
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
@@ -133,11 +135,20 @@
                             oninput="setCustomValidity('')">
                     </div>
                 </div>
-                <input type="submit" class="btn" value="Login">
+                <button type="submit" class="btn btn-danger">Log In</button>
             </form>
         </div>
     </div>
     <script src="{{ asset('/assets') }}/vendor/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

@@ -5,7 +5,7 @@
         <h4 class="mb-3"><span class="fw-light">Dashboards</h4>
         <!-- Card Border Shadow -->
         <div class="row">
-            <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card card-border-shadow-primary">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2 pb-1">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card card-border-shadow-info">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2 pb-1">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3 mb-4">
+            <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card card-border-shadow-warning">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2 pb-1">
