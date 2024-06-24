@@ -34,7 +34,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $employee->name ?? '' }}</td>
                                 <td>{{ $employee->nik }}</td>
-                                <td>{{ $employee->jenis_kelamin }}</td>
+                                <td>{{ ucfirst(strtolower($employee->jenis_kelamin)) }}</td>
                                 <td>{{ $employee->branch->lokasi }}</td>
                                 <td>
                                     @if ($employee->status == 'Aktif')
