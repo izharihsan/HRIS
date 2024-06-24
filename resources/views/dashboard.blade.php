@@ -1,52 +1,121 @@
 @extends('template.template', ['title' => 'Dashboards', 'is_active' => true])
 
 @section('content')
+    <style>
+        .rounded {
+            -webkit-border-radius: 3px !important;
+            -moz-border-radius: 3px !important;
+            border-radius: 3px !important;
+        }
+
+        .mini-stat {
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mini-stat-icon {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            line-height: 60px;
+            text-align: center;
+            font-size: 30px;
+            background: none repeat scroll 0% 0% #EEE;
+            border-radius: 100%;
+            float: left;
+            margin-right: 10px;
+            color: #FFF;
+        }
+
+        .mini-stat-info {
+            font-size: 12px;
+            padding-top: 2px;
+        }
+
+        .mini-stat-info span {
+            display: block;
+            font-size: 30px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            margin-top: 7px;
+        }
+
+        /* ================ colors =====================*/
+        .bg-facebook {
+            background-color: #3b5998 !important;
+            border: 1px solid #3b5998;
+            color: white;
+        }
+
+        .fg-facebook {
+            color: #3b5998 !important;
+        }
+
+        .bg-twitter {
+            background-color: #00a0d1 !important;
+            border: 1px solid #00a0d1;
+            color: white;
+        }
+
+        .fg-twitter {
+            color: #00a0d1 !important;
+        }
+
+        .bg-googleplus {
+            background-color: #db4a39 !important;
+            border: 1px solid #db4a39;
+            color: white;
+        }
+
+        .fg-googleplus {
+            color: #db4a39 !important;
+        }
+
+        .bg-bitbucket {
+            background-color: #205081 !important;
+            border: 1px solid #205081;
+            color: white;
+        }
+
+        .fg-bitbucket {
+            color: #205081 !important;
+    </style>
+
+
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="mb-3"><span class="fw-light">Dashboards</h4>
-        <!-- Card Border Shadow -->
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <div class="row">
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card card-border-shadow-primary">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2 pb-1">
-                            <div class="avatar me-2">
-                                <span class="avatar-initial rounded bg-label-primary"><i
-                                        class="ti ti-users-group ti-md"></i></span>
-                            </div>
-                            <h4 class="ms-1 mb-0">{{ $totalKaryawan }}</h4>
-                        </div>
-                        <p class="mb-1">Total Karyawan</p>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="mini-stat clearfix bg-facebook rounded">
+                    <span class="mini-stat-icon"><i class="fa fa-users fg-facebook"></i></span>
+                    <div class="mini-stat-info">
+                        <span>{{ $totalKaryawan }}</span>
+                        Total Karyawan
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card card-border-shadow-info">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2 pb-1">
-                            <div class="avatar me-2">
-                                <span class="avatar-initial rounded bg-label-info"><i class="ti ti-man ti-md"></i></span>
-                            </div>
-                            <h4 class="ms-1 mb-0">{{ $totalKaryawanLakilaki }}</h4>
-                        </div>
-                        <p class="mb-1">Karyawan Laki-laki</p>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="mini-stat clearfix bg-twitter rounded">
+                    <span class="mini-stat-icon"><i class="fa fa-male fg-twitter"></i></span>
+                    <div class="mini-stat-info">
+                        <span>{{ $totalKaryawanLakilaki }}</span>
+                        Karyawan Laki - Laki
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card card-border-shadow-warning">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2 pb-1">
-                            <div class="avatar me-2">
-                                <span class="avatar-initial rounded bg-label-warning"><i
-                                        class="ti ti-woman ti-md"></i></span>
-                            </div>
-                            <h4 class="ms-1 mb-0">{{ $totalKaryawanPerempuan }}</h4>
-                        </div>
-                        <p class="mb-1">Karyawan Perempuan</p>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="mini-stat clearfix bg-googleplus rounded">
+                    <span class="mini-stat-icon"><i class="fa fa-female fg-googleplus"></i></span>
+                    <div class="mini-stat-info">
+                        <span>{{ $totalKaryawanPerempuan }}</span>
+                        Karyawan Perempuan
                     </div>
                 </div>
             </div>
         </div>
+
         <!--/ Card Border Shadow -->
         <div class="row">
             <!-- On route vehicles Table -->
