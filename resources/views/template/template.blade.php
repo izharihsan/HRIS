@@ -36,9 +36,9 @@
     </style>
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -120,7 +120,8 @@
                         </ul>
                     </li>
 
-                    <li class="menu-item {{ $title == 'Employee List' || $title == 'Schedule' || $title == 'Attendance' || $title == 'Overtime' ? 'active open' : '' }}">
+                    <li
+                        class="menu-item {{ $title == 'Employee List' || $title == 'Schedule' || $title == 'Attendance' || $title == 'Overtime' || $title == 'Perjalanan Dinas' || $title == 'Peringatan Karyawan' || $title == 'Promosi' || $title == 'Rewards' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons ti ti-users-group"></i>
                             <div data-i18n="Employees">Employees</div>
@@ -149,6 +150,26 @@
                             <li class="menu-item {{ $title == 'Overtime' ? 'active' : '' }}">
                                 <a href="{{ route('overtime') }}" class="menu-link">
                                     <div data-i18n="Overtime">Overtime</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ $title == 'Perjalanan Dinas' ? 'active' : '' }}">
+                                <a href="{{ route('dinas_trips') }}" class="menu-link">
+                                    <div data-i18n="Perjalanan Dinas">Perjalanan Dinas</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ $title == 'Peringatan Karyawan' ? 'active' : '' }}">
+                                <a href="{{ route('employee_warning') }}" class="menu-link">
+                                    <div data-i18n="Peringatan Karyawan">Peringatan Karyawan</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ $title == 'Promosi' ? 'active' : '' }}">
+                                <a href="{{ route('employee_promotion') }}" class="menu-link">
+                                    <div data-i18n="Promosi">Promosi</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ $title == 'Rewards' ? 'active' : '' }}">
+                                <a href="{{ route('employee_rewards') }}" class="menu-link">
+                                    <div data-i18n="Rewards">Rewards</div>
                                 </a>
                             </li>
                         </ul>

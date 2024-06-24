@@ -14,6 +14,10 @@ use App\Models\Village;
 use App\Models\EmployeeDocument;
 use App\Models\EmployeeFamily;
 use App\Models\EmployeeEducation;
+use App\Models\PerjalananDinas;
+use App\Models\EmployeeWarning;
+use App\Models\EmployeeRewards;
+use App\Models\EmployeePromotion;
 
 class EmployeeCtrl extends Controller
 {
@@ -256,5 +260,229 @@ class EmployeeCtrl extends Controller
         $employeeFamily->delete();
 
         return redirect()->back()->with('success', 'Keluarga berhasil dihapus')->with('pageIsActive', 'family');
+    }
+
+    public function indexPerjalananDinas()
+    {
+        $trips = PerjalananDinas::all();
+        $employees = Employee::all();
+        return view('admin.perjalanan_dinas.view', compact('trips', 'employees'));
+    }
+
+    public function storePerjalananDinas(Request $request)
+    {
+        if ($request->start_date > $request->end_date) {
+            return redirect()->back()->with('error', 'Tanggal mulai tidak boleh lebih besar dari tanggal selesai');
+        }
+
+        $filename = null;
+
+        if ($request->hasFile('lampiran_dinas')) {
+            $file = $request->file('lampiran_dinas');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_trips'), $filename);
+        }
+
+        $request->merge(['attachment' => $filename]);
+
+        PerjalananDinas::create([
+            'employee_id' => $request->employee_id,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'description' => $request->description,
+            'title' => $request->title,
+            'attachment' => $filename,
+        ]);
+        return redirect()->back()->with('success', 'Perjalanan dinas berhasil ditambahkan');
+    }
+
+    public function updatePerjalananDinas(Request $request, $id)
+    {
+        $trip = PerjalananDinas::find($id);
+
+        if ($request->start_date > $request->end_date) {
+            return redirect()->back()->with('error', 'Tanggal mulai tidak boleh lebih besar dari tanggal selesai');
+        }
+
+        $filename = null;
+
+        if ($request->hasFile('lampiran_dinas')) {
+            $file = $request->file('lampiran_dinas');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_trips'), $filename);
+            $request->merge(['attachment' => $filename]);
+        }
+
+
+        $trip->update([
+            'employee_id' => $request->employee_id,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'description' => $request->description,
+            'title' => $request->title,
+            'attachment' => $request->hasFile('lampiran_dinas') ? $filename : $trip->attachment,
+        ]);
+
+        return redirect()->back()->with('success', 'Perjalanan dinas berhasil diupdate');
+    }
+
+    public function destroyPerjalananDinas($id)
+    {
+        $trip = PerjalananDinas::find($id);
+        unlink(public_path('image/employee_trips/' . $trip->attachment));
+        $trip->delete();
+
+        return redirect()->back()->with('success', 'Perjalanan dinas berhasil dihapus');
+    }
+
+    public function indexWarning()
+    {
+        $warnings = EmployeeWarning::all();
+        $employees = Employee::all();
+        return view('admin.peringatan.view', compact('warnings', 'employees'));
+    }
+
+    public function storeWarning(Request $request)
+    {
+        $filename = null;
+
+        if ($request->hasFile('lampiran_warning')) {
+            $file = $request->file('lampiran_warning');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_warning'), $filename);
+        }
+
+        $request->merge(['attachment' => $filename]);
+
+        EmployeeWarning::create([
+            'employee_id' => $request->employee_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'attachment' => $filename,
+        ]);
+
+        return redirect()->back()->with('success', 'Peringatan berhasil ditambahkan');
+    }
+
+    public function updateWarning(Request $request, $id)
+    {
+        $warning = EmployeeWarning::find($id);
+
+        $filename = null;
+
+        if ($request->hasFile('lampiran_warning')) {
+            $file = $request->file('lampiran_warning');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_warning'), $filename);
+            $request->merge(['attachment' => $filename]);
+        }
+
+        $warning->update([
+            'employee_id' => $request->employee_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'attachment' => $request->hasFile('lampiran_warning') ? $filename : $warning->attachment,
+        ]);
+
+        return redirect()->back()->with('success', 'Peringatan berhasil diupdate');
+    }
+
+    public function destroyWarning($id)
+    {
+        $warning = EmployeeWarning::find($id);
+        unlink(public_path('image/employee_warning/' . $warning->attachment));
+        $warning->delete();
+
+        return redirect()->back()->with('success', 'Peringatan berhasil dihapus');
+    }
+
+    public function indexRewards()
+    {
+        $rewards = EmployeeRewards::all();
+        $employees = Employee::all();
+        return view('admin.rewards.view', compact('rewards', 'employees'));
+    }
+
+    public function storeRewards(Request $request)
+    {
+        EmployeeRewards::create($request->all());
+        return redirect()->back()->with('success', 'Penghargaan berhasil ditambahkan');
+    }
+
+    public function updateRewards(Request $request, $id)
+    {
+        $reward = EmployeeRewards::find($id);
+        $reward->update($request->all());
+        return redirect()->back()->with('success', 'Penghargaan berhasil diupdate');
+    }
+
+    public function destroyRewards($id)
+    {
+        $reward = EmployeeRewards::find($id);
+        $reward->delete();
+        return redirect()->back()->with('success', 'Penghargaan berhasil dihapus');
+    }
+
+    public function indexPromotion()
+    {
+        $promotions = EmployeePromotion::all();
+        $employees = Employee::all();
+        return view('admin.promotion.view', compact('promotions', 'employees'));
+    }
+
+    public function storePromotion(Request $request)
+    {
+        $filename = null;
+
+        if ($request->hasFile('lampiran_promosi')) {
+            $file = $request->file('lampiran_promosi');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_promotion'), $filename);
+        }
+
+        $request->merge(['attachment' => $filename]);
+
+        EmployeePromotion::create([
+            'employee_id' => $request->employee_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'promotion_date' => $request->promotion_date,
+            'attachment' => $filename,
+        ]);
+
+        return redirect()->back()->with('success', 'Promosi berhasil ditambahkan');
+    }
+
+    public function updatePromotion(Request $request, $id)
+    {
+        $promotion = EmployeePromotion::find($id);
+
+        $filename = null;
+
+        if ($request->hasFile('lampiran_promosi')) {
+            $file = $request->file('lampiran_promosi');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('image/employee_promotion'), $filename);
+            $request->merge(['attachment' => $filename]);
+        }
+
+        $promotion->update([
+            'employee_id' => $request->employee_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'promotion_date' => $request->promotion_date,
+            'attachment' => $request->hasFile('lampiran_promosi') ? $filename : $promotion->attachment,
+        ]);
+
+        return redirect()->back()->with('success', 'Promosi berhasil diupdate');
+    }
+
+    public function destroyPromotion($id)
+    {
+        $promotion = EmployeePromotion::find($id);
+        unlink(public_path('image/employee_promotion/' . $promotion->attachment));
+        $promotion->delete();
+
+        return redirect()->back()->with('success', 'Promosi berhasil dihapus');
     }
 }

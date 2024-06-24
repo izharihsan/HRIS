@@ -115,6 +115,30 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/permission/approve/{id}', [TimeoffCtrl::class, 'approvePermission'])->name('permissions.approve');
         Route::post('/permission/reject/{id}', [TimeoffCtrl::class, 'rejectPermission'])->name('permissions.reject');
     });
+
+    // EMPLOYEE DINAS TRIPS
+    Route::get('/perjalanan-dinas', [EmployeeCtrl::class, 'indexPerjalananDinas'])->name('dinas_trips');
+    Route::post('/perjalanan-dinas', [EmployeeCtrl::class, 'storePerjalananDinas'])->name('dinas_trips.store');
+    Route::delete('/perjalanan-dinas/{id}', [EmployeeCtrl::class, 'destroyPerjalananDinas'])->name('dinas_trips.delete');
+    Route::put('/perjalanan-dinas/{id}', [EmployeeCtrl::class, 'updatePerjalananDinas'])->name('dinas_trips.update');
+
+    // EMPLOYEE WARNING
+    Route::get('/employee-warning', [EmployeeCtrl::class, 'indexWarning'])->name('employee_warning');
+    Route::post('/employee-warning', [EmployeeCtrl::class, 'storeWarning'])->name('employee_warning.store');
+    Route::delete('/employee-warning/{id}', [EmployeeCtrl::class, 'destroyWarning'])->name('employee_warning.delete');
+    Route::put('/employee-warning/{id}', [EmployeeCtrl::class, 'updateWarning'])->name('employee_warning.update');
+
+    // EMPLOYEE REWARDS
+    Route::get('/employee-rewards', [EmployeeCtrl::class, 'indexRewards'])->name('employee_rewards');
+    Route::post('/employee-rewards', [EmployeeCtrl::class, 'storeRewards'])->name('employee_rewards.store');
+    Route::delete('/employee-rewards/{id}', [EmployeeCtrl::class, 'destroyRewards'])->name('employee_rewards.delete');
+    Route::put('/employee-rewards/{id}', [EmployeeCtrl::class, 'updateRewards'])->name('employee_rewards.update');
+
+    // EMPLOYEE PROMOTION
+    Route::get('/employee-promotion', [EmployeeCtrl::class, 'indexPromotion'])->name('employee_promotion');
+    Route::post('/employee-promotion', [EmployeeCtrl::class, 'storePromotion'])->name('employee_promotion.store');
+    Route::delete('/employee-promotion/{id}', [EmployeeCtrl::class, 'destroyPromotion'])->name('employee_promotion.delete');
+    Route::put('/employee-promotion/{id}', [EmployeeCtrl::class, 'updatePromotion'])->name('employee_promotion.update');
 });
 
 // Route::get('/test-insert', function () {
