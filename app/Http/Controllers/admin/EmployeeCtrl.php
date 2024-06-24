@@ -18,6 +18,7 @@ use App\Models\PerjalananDinas;
 use App\Models\EmployeeWarning;
 use App\Models\EmployeeRewards;
 use App\Models\EmployeePromotion;
+use App\Models\EmployeeResign;
 
 class EmployeeCtrl extends Controller
 {
@@ -484,5 +485,36 @@ class EmployeeCtrl extends Controller
         $promotion->delete();
 
         return redirect()->back()->with('success', 'Promosi berhasil dihapus');
+    }
+
+    public function indexResign()
+    {
+        $resigns = EmployeeResign::all();
+        return view('admin.resign.view', compact('resigns'));
+    }
+
+    // approve resign request from employee
+    public function approveResign(Request $request, $id)
+    {
+        $resign = EmployeeResign::find($id);
+        $resign->status = 'approved';
+        $resign->approved_by = auth()->user()->id;
+        $resign->approved_resign_date = now();
+        $resign->status_message = $request->message;
+        $resign->save();
+
+        return redirect()->back()->with('success', 'Resign berhasil disetujui');
+    }
+
+    // reject resign request from employee
+    public function rejectResign(Request $request, $id)
+    {
+        $resign = EmployeeResign::find($id);
+        $resign->status = 'rejected';
+        $resign->approved_by = auth()->user()->id;
+        $resign->status_message = $request->message;
+        $resign->save();
+
+        return redirect()->back()->with('success', 'Resign berhasil ditolak');
     }
 }

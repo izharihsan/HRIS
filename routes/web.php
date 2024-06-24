@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\EmployeeCtrl;
+use App\Http\Controllers\admin\FinanceCtrl;
 use App\Http\Controllers\admin\MasterCutiCtrl;
 use App\Http\Controllers\admin\PerusahaanCtrl;
 use App\Http\Controllers\admin\ScheduleCtrl;
@@ -139,15 +140,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/employee-promotion', [EmployeeCtrl::class, 'storePromotion'])->name('employee_promotion.store');
     Route::delete('/employee-promotion/{id}', [EmployeeCtrl::class, 'destroyPromotion'])->name('employee_promotion.delete');
     Route::put('/employee-promotion/{id}', [EmployeeCtrl::class, 'updatePromotion'])->name('employee_promotion.update');
-});
 
-// Route::get('/test-insert', function () {
-//     Schedule::create([
-//         'user_id' => 4,
-//         'shift_id' => 2,
-//         'date' => '2024-05-31'
-//     ]);
-// });
+    Route::get('/employee-resign', [EmployeeCtrl::class, 'indexResign'])->name('employee_resign');
+    Route::post('/employee-resign/approve/{id}', [EmployeeCtrl::class, 'approveResign'])->name('employee_resign.approve');
+    Route::post('/employee-resign/reject/{id}', [EmployeeCtrl::class, 'rejectResign'])->name('employee_resign.reject');
+
+    // EMPLOYEE REIMBURSEMENT
+    Route::get('/employee-reimbursement', [FinanceCtrl::class, 'reimbursements'])->name('reimbursement');
+    Route::post('/employee-reimbursement/approve/{id}', [FinanceCtrl::class, 'approveReimbursement'])->name('reimbursement.approve');
+    Route::post('/employee-reimbursement/reject/{id}', [FinanceCtrl::class, 'rejectReimbursement'])->name('reimbursement.reject');
+});
 
 Route::get('/config-clear', function () {
     Artisan::call('config:clear');

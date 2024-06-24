@@ -121,7 +121,7 @@
                     </li>
 
                     <li
-                        class="menu-item {{ $title == 'Employee List' || $title == 'Schedule' || $title == 'Attendance' || $title == 'Overtime' || $title == 'Perjalanan Dinas' || $title == 'Peringatan Karyawan' || $title == 'Promosi' || $title == 'Rewards' ? 'active open' : '' }}">
+                        class="menu-item {{ $title == 'Employee List' || $title == 'Schedule' || $title == 'Attendance' || $title == 'Overtime' || $title == 'Perjalanan Dinas' || $title == 'Peringatan Karyawan' || $title == 'Promosi' || $title == 'Rewards' || $title == 'Pengunduran Karyawan' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons ti ti-users-group"></i>
                             <div data-i18n="Employees">Employees</div>
@@ -172,6 +172,11 @@
                                     <div data-i18n="Rewards">Rewards</div>
                                 </a>
                             </li>
+                            <li class="menu-item {{ $title == 'Pengunduran Karyawan' ? 'active' : '' }}">
+                                <a href="{{ route('employee_resign') }}" class="menu-link">
+                                    <div data-i18n="Pengunduran Karyawan">Pengunduran Karyawan</div>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -215,14 +220,14 @@
                         </ul>
                     </li>
 
-                    <li class="menu-item">
+                    <li class="menu-item {{ $title == 'Reimbursement' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons ti ti-report-money"></i>
                             <div data-i18n="Finance">Finance</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="app-access-roles.html" class="menu-link">
+                            <li class="menu-item {{ $title == 'Reimbursement' ? 'active' : '' }}">
+                                <a href="{{ route('reimbursement') }}" class="menu-link">
                                     <div data-i18n="Reimbursment">Reimbursment</div>
                                 </a>
                             </li>
