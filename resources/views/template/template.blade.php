@@ -349,7 +349,7 @@
                                         document.write(new Date().getFullYear());
                                     </script>
                                     , made with ❤️ by
-                                    <a href="https://pixinvent.com" target="_blank" class="footer-link text-danger fw-medium">HRIS Amore</a>
+                                    <a href="" target="_blank" class="footer-link text-danger fw-medium">Amore</a>
                                 </div>
                             </div>
                         </div>
