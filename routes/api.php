@@ -4,6 +4,7 @@ use App\Http\Controllers\api\AddressCtrl;
 use App\Http\Controllers\api\AttendanceCtrl;
 use App\Http\Controllers\api\AuthCtrl;
 use App\Http\Controllers\api\EmployeeCtrl;
+use App\Http\Controllers\api\FinanceCtrl;
 use App\Http\Controllers\api\OvertimeCtrl;
 use App\Http\Controllers\api\TimeoffCtrl;
 use App\Http\Controllers\api\UserCtrl;
@@ -78,4 +79,9 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('cities/{province_id}', [AddressCtrl::class, 'getCities']);
     Route::get('districts/{city_id}', [AddressCtrl::class, 'getDistricts']);
     Route::get('villages/{district_id}', [AddressCtrl::class, 'getVillages']);
+
+    // REIMBURSEMENT
+    Route::get('reimbursement', [FinanceCtrl::class, 'getUserReimbursements']);
+    Route::get('reimbursement/{id}', [FinanceCtrl::class, 'getDetailReimbursement']);
+    Route::post('reimbursement', [FinanceCtrl::class, 'submitReimbursement']);
 });
