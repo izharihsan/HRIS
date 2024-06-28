@@ -149,6 +149,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/employee-reimbursement', [FinanceCtrl::class, 'reimbursements'])->name('reimbursement');
     Route::post('/employee-reimbursement/approve/{id}', [FinanceCtrl::class, 'approveReimbursement'])->name('reimbursement.approve');
     Route::post('/employee-reimbursement/reject/{id}', [FinanceCtrl::class, 'rejectReimbursement'])->name('reimbursement.reject');
+
+    // BANK
+    Route::post('/bank', [EmployeeCtrl::class, 'storeBankAccount'])->name('employee.bank.store');
 });
 
 Route::get('/config-clear', function () {

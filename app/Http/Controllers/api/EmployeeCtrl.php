@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Schedule;
+use App\Models\Shift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -31,6 +34,11 @@ class EmployeeCtrl extends Controller
                     $query->select('id', 'name');
                 },
             ])->find(auth()->user()->id);
+
+            $bankAccount = BankAccount::where('employee_id', $user->employee->id)->first();
+            if ($bankAccount) {
+                $user->employee->bank_account = $bankAccount;
+            }
 
             // yg bisa mengajukancuti hanya karyawan yg sudah 1 tahun dan ditampilkan di profile sisa cuti yg belum diambil
             $tahun_masuk = date('Y', strtotime($user->employee->tanggal_join));
@@ -102,5 +110,19 @@ class EmployeeCtrl extends Controller
                 'message' => 'Failed to update profile.'
             ], 500);
         }
+    }
+
+    public function getSchedules()
+    {
+        $shift = Shift::with(['schedules', 'schedules.shift' => function ($query) {
+            $query->select('id', 'start_time', 'end_time');
+        }])->where('branch_id', auth()->user()->employee->branch_id)->first();
+
+        // sort by day column sort in Senin - Sabtu
+        $shift->schedules = $shift->schedules->sortBy(function ($schedule) {
+            return array_search($schedule->day, ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']);
+        });
+
+        return response()->json($shift->schedules, 200);
     }
 }

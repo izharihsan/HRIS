@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\Branch;
 use App\Models\City;
 use App\Models\Districts;
@@ -516,5 +517,19 @@ class EmployeeCtrl extends Controller
         $resign->save();
 
         return redirect()->back()->with('success', 'Resign berhasil ditolak');
+    }
+
+    // BANK account store or update if exist
+    public function storeBankAccount(Request $request)
+    {
+        $bankAccount = BankAccount::where('employee_id', $request->employee_id)->first();
+
+        if ($bankAccount) {
+            $bankAccount->update($request->except('_token', 'employee_id'));
+        } else {
+            $bankAccount = BankAccount::create($request->except('_token'));
+        }
+
+        return redirect()->back()->with('success', 'Rekening bank berhasil diatur');
     }
 }

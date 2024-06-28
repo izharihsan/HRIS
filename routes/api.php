@@ -46,6 +46,9 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::post('profile/update-personal', [EmployeeCtrl::class, 'updateProfilePersonal']);
     Route::post('profile/update-contact', [EmployeeCtrl::class, 'updateProfileContact']);
 
+    // schedules employee
+    Route::get('schedules', [EmployeeCtrl::class, 'getSchedules']);
+
     Route::get('attendance', [AttendanceCtrl::class, 'getCurrentAttendance']);
     Route::get('attendance/history', [AttendanceCtrl::class, 'getAttendanceHistory']);
     Route::post('clock-in', [AttendanceCtrl::class, 'clock_in']);

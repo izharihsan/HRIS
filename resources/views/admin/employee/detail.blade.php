@@ -20,6 +20,9 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="keluarga-tab" data-bs-toggle="tab" href="#keluarga" role="tab" aria-controls="keluarga" aria-selected="false">Keluarga</a>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="bank-tab" data-bs-toggle="tab" href="#bank" role="tab" aria-controls="bank" aria-selected="false">Bank</a>
+                        </li>
 
                     </ul>
                     <div class="tab-content" id="employeeDetailsTabsContent">
@@ -159,6 +162,27 @@
                             @endif
                         </div>
 
+                        <div class="tab-pane fade" id="bank" role="tabpanel" aria-labelledby="bank-tab">
+                            {{-- form input bank_name, account_number, anda account_name --}}
+                            <form action="{{ route('employee.bank.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+                                <div class="mb-3">
+                                    <label for="bank_name" class="form-label">Bank Name</label>
+                                    <input type="text" class="form-control" id="bank_name" name="bank_name" required value="{{ $employee->bank_account->bank_name ?? '' }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="account_number" class="form-label">Account Number</label>
+                                    <input type="text" class="form-control" id="account_number" name="account_number" required value="{{ $employee->bank_account->account_number ?? '' }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="account_name" class="form-label ">Account Name</label>
+                                    <input type="text" class="form-control" id="account_name" name="account_name" required value="{{ $employee->bank_account->account_name ?? '' }}">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -44,6 +44,11 @@ class Employee extends Model
         return $this->belongsTo(Village::class, 'village_id');
     }
 
+    public function bank_account()
+    {
+        return $this->hasOne(BankAccount::class, 'employee_id');
+    }
+
     // handle postgre id increment when insert new data
     public static function boot()
     {
