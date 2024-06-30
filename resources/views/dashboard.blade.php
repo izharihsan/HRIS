@@ -80,12 +80,11 @@
         .fg-bitbucket {
             color: #205081 !important;
     </style>
-
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="mb-3"><span class="fw-light">Dashboards</h4>
 
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
         <div class="row">
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="mini-stat clearfix bg-facebook rounded">
@@ -116,9 +115,7 @@
             </div>
         </div>
 
-        <!--/ Card Border Shadow -->
         <div class="row">
-            <!-- On route vehicles Table -->
             <div class="col-12 order-5">
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -128,11 +125,12 @@
                     </div>
 
                     <div class="card-datatable table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-bordered">
                             <thead>
-                                <tr>
+                                <tr align="center">
                                     <th>No</th>
-                                    <th>Name</th>
+                                    <th>Fullname</th>
+                                    <th>Absen</th>
                                     <th>Status</th>
                                     <th>Timestamp</th>
                                     <th>Action</th>
@@ -141,28 +139,34 @@
                             <tbody>
                                 @foreach ($absencesHistoryWithLimit as $attendance)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            <center>{{ $loop->iteration }}</center>
+                                        </td>
                                         <td>{{ $attendance->employee->name ?? '' }}</td>
                                         <td>
                                             @if ($attendance->type == 'clock_in')
-                                                <span>Check In</span>
+                                                <span>Absen Masuk</span>
                                             @elseif ($attendance->type == 'forgot_clock_in')
-                                                <span>Forgot Check In</span>
+                                                <span>Lupa Absen Masuk</span>
                                             @elseif ($attendance->type == 'clock_out')
-                                                <span>Check Out</span>
+                                                <span>Absen Pulang</span>
                                             @else
-                                                <span>Forgot Check Out</span>
+                                                <span>Lupa Absen Pulang</span>
                                             @endif
-
-                                            <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">
-                                                {{ $attendance->late ? 'Late' : 'Present' }}
-                                            </span>
                                         </td>
-                                        <td>{{ $attendance->timestamp }}</td>
-                                        {{-- <td>{{ $attendance->created_at }}</td> --}}
+                                        <td><center>
+                                            <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">
+                                                {{ $attendance->late ? 'Absen Masuk Terlambat' : 'Absen Masuk Tepat Waktu' }}
+                                            </span></center>
+                                        </td>
                                         <td>
+                                            Tanggal {{ date('d-M-Y', strtotime($attendance->timestamp)) }}<br>
+                                            Jam {{ date('H:i:s A', strtotime($attendance->timestamp)) }}
+                                        </td>
+                                        <td><center>
                                             <a href="{{ route('attendance.detail', $attendance->id) }}"
-                                                class="btn btn-sm btn-outline-primary">Detail</a>
+                                                class="btn btn-sm btn-primary">Detail</a>
+                                                </center>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -171,8 +175,6 @@
                     </div>
                 </div>
             </div>
-
-            <!--/ On route vehicles Table -->
         </div>
     </div>
 @endsection
