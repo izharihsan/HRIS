@@ -4,16 +4,15 @@
     <!-- DataTable with Buttons -->
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card p-3">
-            <h3>Employee Leaves</h3>
-            <div class="card-datatable table-responsive pt-0">
-                <table class="datatables-basic table">
+            <h3>List Cuti</h3>
+            <div class="card-datatable table-responsive pt-0 mt-3">
+                <table class="datatables-basic table cell-border" id="datatables-basic">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Name</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Nama Karyawan</th>
+                            <th>Tipe Cuti</th>
+                            <th>Tanggal</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -23,9 +22,9 @@
                         @foreach ($leaves as $leave)
                             <tr>
                                 <td>{{ $leave->id }}</td>
-                                <td>{{ $leave->user->name }}</td>
-                                <td>{{ $leave->start_date }}</td>
-                                <td>{{ $leave->end_date }}</td>
+                                <td>{{ $leave->user->name ?? '' }}</td>
+                                <td>{{ $leave->tipe_cuti->name ?? '' }}</td>
+                                <td>{{ Carbon\Carbon::parse($leave->start_date)->format('d M Y') }} {{ $leave->end_date != null ? ' s/d ' . Carbon\Carbon::parse($leave->end_date)->format('d M Y') : '' }}
                                 <td>
                                     @if ($leave->status == 'pending')
                                         <span class="badge p-1 bg-warning">Pending</span>
@@ -57,8 +56,7 @@
 
                                                         {{-- message input optionally --}}
                                                         <div class="form-group mt-2">
-                                                            <label for="message">Message</label>
-                                                            <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                                            <textarea class="form-control" name="message" id="message" rows="3" placeholder="Enter notes"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -91,8 +89,7 @@
 
                                                         {{-- message input optionally --}}
                                                         <div class="form-group mt-2">
-                                                            <label for="message">Message</label>
-                                                            <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                                            <textarea class="form-control" name="message" id="message" rows="3" placeholder="Enter notes"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -118,22 +115,16 @@
                                                     <h5 class="modal-title" id="myModalLabel160">Detail Leave</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body text-center">
-                                                    <p>Detail Leave</p>
-                                                    <p>Employee Name: {{ $leave->user->name }}</p>
-                                                    <p>Start Date: {{ $leave->start_date }}</p>
-                                                    <p>End Date: {{ $leave->end_date }}</p>
-                                                    <p>Message: {{ $leave->message }}</p>
-                                                    <p>Status: {{ $leave->status }}</p>
-                                                    <p>Response Message: {{ $leave->status_message }}</p>
+                                                <div class="modal-body text-start">
+                                                    <p>Employee Name: <strong>{{ $leave->user->name }}</strong></p>
+                                                    <p>Start Date: <strong>{{ $leave->start_date }}</strong></p>
+                                                    <p>End Date: <strong>{{ $leave->end_date }}</strong></p>
+                                                    <p>Message: <strong>{{ $leave->message }}</strong></p>
+                                                    <p>Status: <strong>{{ $leave->status }}</strong></p>
+                                                    <p>Response Message: <strong>{{ $leave->status_message }}</strong></p>
+                                                    <p>Approved At: <strong>{{ $leave->approved_at }}</strong></p>
                                                     {{-- a href to view attachment --}}
-                                                    <a href="{{ asset('timeoffs/' . $leave->attachment) }}" target="_blank" class="btn btn-info">View Attachment</a>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Close</span>
-                                                    </button>
+                                                    <a href="{{ asset('timeoffs/' . $leave->attachment) }}" target="_blank" class="btn btn-primary">View Attachment</a>
                                                 </div>
                                             </div>
                                         </div>

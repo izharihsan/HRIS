@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('hr_permissions', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->date('start_date');
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('attachment');
             $table->enum('status', ['pending', 'approved', 'rejected']);
             $table->string('status_message')->nullable();
+            $table->date('approved_at')->nullable();
             $table->timestamps();
         });
     }

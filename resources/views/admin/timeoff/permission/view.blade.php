@@ -5,8 +5,8 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card p-3">
             <h3>Employee Permissions</h3>
-            <div class="card-datatable table-responsive pt-0">
-                <table class="datatables-basic table">
+            <div class="card-datatable table-responsive pt-0 mt-3">
+                <table class="datatables-basic table cell-border" id="datatables-basic">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -23,7 +23,7 @@
                         @foreach ($permissions as $permission)
                             <tr>
                                 <td>{{ $permission->id }}</td>
-                                <td>{{ $permission->user->name }}</td>
+                                <td>{{ $permission->user->name ?? '' }}</td>
                                 <td>{{ $permission->start_date }}</td>
                                 <td>{{ $permission->end_date }}</td>
                                 <td>
@@ -57,8 +57,7 @@
 
                                                         {{-- message input optionally --}}
                                                         <div class="form-group mt-2">
-                                                            <label for="message">Message</label>
-                                                            <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                                            <textarea class="form-control" name="message" id="message" rows="3" placeholder="Enter notes"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -91,8 +90,7 @@
 
                                                         {{-- message input optionally --}}
                                                         <div class="form-group mt-2">
-                                                            <label for="message">Message</label>
-                                                            <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                                            <textarea class="form-control" name="message" id="message" rows="3" placeholder="Enter notes"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -118,22 +116,16 @@
                                                     <h5 class="modal-title" id="myModalLabel160">Detail Permissions</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body text-center">
-                                                    <p>Detail Leave</p>
-                                                    <p>Employee Name: {{ $permission->user->name }}</p>
-                                                    <p>Start Date: {{ $permission->start_date }}</p>
-                                                    <p>End Date: {{ $permission->end_date }}</p>
-                                                    <p>Message: {{ $permission->message }}</p>
-                                                    <p>Status: {{ $permission->status }}</p>
-                                                    <p>Response Message: {{ $permission->status_message }}</p>
+                                                <div class="modal-body text-start">
+                                                    <p>Employee Name: <strong>{{ $permission->user->name ?? '' }}</strong></p>
+                                                    <p>Start Date: <strong>{{ $permission->start_date }}</strong></p>
+                                                    <p>End Date: <strong>{{ $permission->end_date }}</strong></p>
+                                                    <p>Message: <strong>{{ $permission->message }}</strong></p>
+                                                    <p>Status: <strong>{{ $permission->status }}</strong></p>
+                                                    <p>Response Message: <strong>{{ $permission->status_message }}</strong></p>
+                                                    <p>Approved At: <strong>{{ $permission->approved_at }}</strong></p>
                                                     {{-- a href to view attachment --}}
-                                                    <a href="{{ asset('timeoffs/' . $permission->attachment) }}" target="_blank" class="btn btn-info">View Attachment</a>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Close</span>
-                                                    </button>
+                                                    <a href="{{ asset('timeoffs/' . $permission->attachment) }}" target="_blank" class="btn btn-primary">View Attachment</a>
                                                 </div>
                                             </div>
                                         </div>

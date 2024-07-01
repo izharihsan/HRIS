@@ -9,7 +9,7 @@ class SickLeave extends Model
 {
     use HasFactory;
 
-    protected $table = 'sick_leaves';
+    protected $table = 'hr_sick_leaves';
     protected $guarded = [];
 
     public function user()

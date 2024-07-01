@@ -5,12 +5,11 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card p-3">
             <h3>Employee Attendances</h3>
-            <div class="card-datatable table-responsive pt-0">
-                <table class="datatables-basic table">
+            <div class="card-datatable table-responsive pt-0 mt-3">
+                <table class="datatables-basic table cell-border" id="datatables-basic">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Timestamp</th>
@@ -22,16 +21,16 @@
                         @foreach ($absences as $attendance)
                             <tr>
                                 <td>{{ $attendance->id }}</td>
-                                <td>{{ $attendance->user->name }}</td>
+                                <td>{{ $attendance->employee->name ?? '' }}</td>
                                 <td>
                                     @if ($attendance->type == 'clock_in')
-                                        <span>Clock In</span>
+                                        <span>Check In</span>
                                     @elseif ($attendance->type == 'forgot_clock_in')
-                                        <span>Forgot Clock In</span>
+                                        <span>Forgot Check In</span>
                                     @elseif ($attendance->type == 'clock_out')
-                                        <span>Clock Out</span>
+                                        <span>Check Out</span>
                                     @else
-                                        <span>Forgot Clock Out</span>
+                                        <span>Forgot Check Out</span>
                                     @endif
 
                                     <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">

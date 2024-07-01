@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('absences', function (Blueprint $table) {
+        Schema::create('hr_absences', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
             $table->enum('type', ['clock_in', 'clock_out', 'forgot_clock_in', 'forgot_clock_out']);
             $table->boolean('late')->default(false);
             $table->timestamp('timestamp');
+            $table->date('tanggal');
             $table->string('lat');
             $table->string('lng');
             $table->string('proof_image');
             $table->string('face_recognition');
             $table->time('start_time');
             $table->time('end_time');
+            $table->text('reason')->nullable();
             $table->timestamps();
         });
     }

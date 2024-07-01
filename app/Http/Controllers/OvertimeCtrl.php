@@ -10,7 +10,7 @@ class OvertimeCtrl extends Controller
     // OVERTIME CTRL
     public function overtime()
     {
-        $overtimes = Overtime::with('absence', 'absence.user')->get();
+        $overtimes = Overtime::with('user')->get();
         return view('admin.timeoff.overtime.view', compact('overtimes'));
     }
 
@@ -19,6 +19,7 @@ class OvertimeCtrl extends Controller
         $absence = Overtime::find($id);
         $absence->status = 'approved';
         $absence->status_message = $request->message ?? '';
+        $absence->approved_at = now()->format('Y-m-d');
         $absence->save();
 
         return redirect()->back()->with('success', 'Overtime request has been approved');

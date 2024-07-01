@@ -1,11 +1,11 @@
-@extends('template.template', ['title' => 'Shifts', 'is_active' => true])
+@extends('template.template', ['title' => 'Schedule', 'is_active' => true])
 
 @section('content')
     <!-- DataTable with Buttons -->
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card p-3">
             <div class="d-flex justify-content-between">
-                <h3>Shifts</h3>
+                <h3>Schedule</h3>
                 <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-record"><i class="fas fa-plus me-1"></i> New Shift</a>
             </div>
             {{-- show alert if has with success --}}
@@ -17,13 +17,12 @@
                     </div>
                 </div>
             @endif
-            <div class="card-datatable table-responsive pt-0">
-                <table class="datatables-basic table">
+            <div class="card-datatable table-responsive pt-0 mt-3">
+                <table class="datatables-basic table cell-border" id="datatables-basic">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Title</th>
+                            <th>No</th>
+                            <th>Branch</th>
                             <th>Start Time</th>
                             <th>End Time</th>
                             <th>Action</th>
@@ -33,12 +32,13 @@
                     <tbody>
                         @foreach ($shifts as $shift)
                             <tr>
-                                <td>{{ $shift->id }}</td>
-                                <td>{{ $shift->title }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $shift->branch->lokasi ?? '' }}</td>
                                 <td>{{ $shift->start_time }}</td>
                                 <td>{{ $shift->end_time }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#edit-record-{{ $shift->id }}">Edit</button>
+                                    <a href="{{ route('shifts.schedule', $shift->id) }}" class="btn btn-sm btn-warning">Schedules</a>
+                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#edit-record-{{ $shift->id }}">Edit</button>
 
                                     <!-- Edit Record Modal -->
                                     <div class="modal fade text-left" id="edit-record-{{ $shift->id }}" tabindex="-1" role="dialog" aria-labelledby="edit-record-{{ $shift->id }}"
@@ -55,7 +55,13 @@
                                                     <div class="modal-body m-3">
                                                         <div class="mb-3">
                                                             <label for="title" class="form-label">Title</label>
-                                                            <input type="text" class="form-control" id="title" name="title" value="{{ $shift->title }}" required>
+                                                            {{-- select option for branches --}}
+                                                            <select class="form-select" name="branch_id" required>
+                                                                <option value="">Select Branch</option>
+                                                                @foreach ($branches as $branch)
+                                                                    <option value="{{ $branch->id }}" {{ $shift->branch_id == $branch->id ? 'selected' : '' }}>{{ $branch->lokasi }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="start_time" class="form-label">Start Time</label>
@@ -67,7 +73,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
                                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                                     </div>
                                                 </form>
@@ -75,7 +81,8 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-record-{{ $shift->id }}">Delete</button>
+
+                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#delete-record-{{ $shift->id }}">Delete</button>
 
                                     <!-- Delete Record Modal -->
                                     <div class="modal fade text-left" id="delete-record-{{ $shift->id }}" tabindex="-1" role="dialog" aria-labelledby="delete-record-{{ $shift->id }}"
@@ -90,10 +97,11 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body m-3">
-                                                        <p>Are you sure you want to delete this shift?</p>
+                                                        <p>Anda yakin ingin menghapus data shift ini?</p>
+                                                        <p>Nb: Data yang sudah dihapus tidak dapat dikembalikan dan semua jadwal yang menggunakan shift ini akan terhapus.</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </div>
                                                 </form>
@@ -123,7 +131,13 @@
                     <div class="modal-body m-3">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
+                            {{-- select option for branches --}}
+                            <select class="form-select" name="branch_id" required>
+                                <option value="">Select Branch</option>
+                                @foreach ($branches as $branch)
+                                    <option value="{{ $branch->id }}">{{ $branch->lokasi }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="start_time" class="form-label">Start Time</label>

@@ -11,14 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('overtimes', function (Blueprint $table) {
+        Schema::create('hr_overtimes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('absence_id');
+            $table->bigInteger('user_id')->nullable();
             $table->text('message');
             $table->time('start_time');
             $table->time('end_time');
-            $table->enum('status', ['pending', 'approved', 'rejected']);
+            $table->date('overtime_date');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('status_message')->nullable();
+            $table->string('before_image')->nullable();
+            $table->string('after_image')->nullable();
+            $table->date('approved_at')->nullable();
             $table->timestamps();
         });
     }

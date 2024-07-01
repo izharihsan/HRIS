@@ -10,7 +10,12 @@ class Shift extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'shifts';
+    protected $table = 'hr_shifts';
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
 
     public function schedules()
     {

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::create('hr_schedules', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->date('date');
             $table->bigInteger('shift_id');
-            $table->bigInteger('absence_id')->nullable();
+            $table->text('user_ids')->nullable();
+            $table->string('day')->nullable();
         });
     }
 

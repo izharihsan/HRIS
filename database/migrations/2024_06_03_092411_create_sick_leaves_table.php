@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sick_leaves', function (Blueprint $table) {
+        Schema::create('hr_sick_leaves', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->date('start_date');
             $table->date('end_date');
             $table->string('message');
             $table->string('attachment');
-            $table->enum('status', ['pending', 'approved', 'rejected']);
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('status_message')->nullable();
+            $table->date('approved_at')->nullable();
             $table->timestamps();
         });
     }

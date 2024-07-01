@@ -8,12 +8,11 @@
                 <h3>Schedules</h3>
                 <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-record"><i class="fas fa-plus me-1"></i> New Schedule</a>
             </div>
-            <div class="card-datatable table-responsive pt-0">
-                <table class="datatables-basic table">
+            <div class="card-datatable table-responsive pt-0 mt-3">
+                <table class="datatables-basic table cell-border" id="datatables-basic">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
                             <th>Name</th>
                             <th>Date</th>
                             <th>Shift</th>
@@ -26,9 +25,9 @@
                         @foreach ($schedules as $schedule)
                             <tr>
                                 <td>{{ $schedule->id }}</td>
-                                <td>{{ $schedule->user->name }}</td>
+                                <td>{{ $schedule->user->name ?? '' }}</td>
                                 <td>{{ Carbon\Carbon::parse($schedule->date)->format('d-m-Y') }}</td>
-                                <td>{{ $schedule->shift->title }}</td>
+                                <td>{{ $schedule->shift->title ?? '' }}</td>
                                 <td>
                                     @if ($schedule->absence_id != null)
                                         <span class="badge bg-success">Attend</span>
