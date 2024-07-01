@@ -101,8 +101,8 @@ class AttendanceCtrl extends Controller
 
             if ($absenceIsduplicated >= 1) {
                 $absence->delete();
-                unlink(public_path('absences/' . $proof_image_name));
-                unlink(public_path('absences/' . $face_recognition_name));
+                // unlink(public_path('absences/' . $proof_image_name));
+                // unlink(public_path('absences/' . $face_recognition_name));
             }
 
 
