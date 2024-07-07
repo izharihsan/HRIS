@@ -258,7 +258,12 @@
                         </ul>
                     </li>
 
-
+                    <li class="menu-item {{ $title == 'Approval Permission' ? 'active' : '' }}">
+                        <a href="{{ route('approval_permission') }}" class="menu-link">
+                            <i class="menu-icon tf-icons ti ti-face-id"></i>
+                            <div data-i18n="Approval Permission">Approval Permission</div>
+                        </a>
+                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->

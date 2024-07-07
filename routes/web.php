@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\EmployeeCtrl;
 use App\Http\Controllers\admin\FinanceCtrl;
 use App\Http\Controllers\admin\MasterCutiCtrl;
 use App\Http\Controllers\admin\PerusahaanCtrl;
+use App\Http\Controllers\admin\RolePermissionCtrl;
 use App\Http\Controllers\admin\ScheduleCtrl;
 use App\Http\Controllers\admin\ShiftCtrl;
 use App\Http\Controllers\admin\TimeoffCtrl;
@@ -152,6 +153,10 @@ Route::middleware(['auth'])->group(function () {
 
     // BANK
     Route::post('/bank', [EmployeeCtrl::class, 'storeBankAccount'])->name('employee.bank.store');
+
+    // Approval Permission
+    Route::get('/approval-permission', [RolePermissionCtrl::class, 'approvalPermission'])->name('approval_permission');
+    Route::put('/approval-permission/{id}', [RolePermissionCtrl::class, 'updateApprovalPermission'])->name('approval_permission.update');
 });
 
 Route::get('/config-clear', function () {
