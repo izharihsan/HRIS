@@ -9,10 +9,11 @@
                 <table class="datatables-basic table cell-border" id="datatables-basic">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
+                            <th>No</th>
+                            <th>Fullname</th>
+                            <th>Check-In Time</th>
+                            <th>Check-Out Time</th>
                             <th>Status</th>
-                            <th>Timestamp</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -20,24 +21,21 @@
                     <tbody>
                         @foreach ($absences as $attendance)
                             <tr>
-                                <td>{{ $attendance->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $attendance->employee->name ?? '' }}</td>
+                                <td>{{ $attendance->clock_in }}</td>
+                                <td>{{ $attendance->clock_out }}</td>
                                 <td>
-                                    @if ($attendance->type == 'clock_in')
-                                        <span>Check In</span>
-                                    @elseif ($attendance->type == 'forgot_clock_in')
-                                        <span>Forgot Check In</span>
-                                    @elseif ($attendance->type == 'clock_out')
-                                        <span>Check Out</span>
+                                    @if ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && $attendance->late))
+                                        <span class="badge p-1 bg-danger">Absen Masuk Terlambat</span>
+                                    @elseif ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && !$attendance->late))
+                                        <span class="badge p-1 bg-success">Absen Masuk</span>
+                                    @elseif ($attendance->type == 'forgot_clock_in' || $attendance->type == 'forgot_clock_out')
+                                        <span class="badge p-1 bg-warning">Lupa Absen Masuk</span>
                                     @else
-                                        <span>Forgot Check Out</span>
+                                        <span class="badge p-1 bg-success">Absen Masuk</span>
                                     @endif
-
-                                    <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">
-                                        {{ $attendance->late ? 'Late' : 'Present' }}
-                                    </span>
                                 </td>
-                                <td>{{ $attendance->timestamp }}</td>
                                 {{-- <td>{{ $attendance->created_at }}</td> --}}
                                 <td>
                                     <a href="{{ route('attendance.detail', $attendance->id) }}" class="btn btn-sm btn-outline-primary">Detail</a>

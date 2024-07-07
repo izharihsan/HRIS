@@ -130,9 +130,9 @@
                                 <tr align="center">
                                     <th>No</th>
                                     <th>Fullname</th>
-                                    <th>Absen</th>
+                                    <th>Check-In Time</th>
+                                    <th>Check-Out Time</th>
                                     <th>Status</th>
-                                    <th>Timestamp</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -143,30 +143,34 @@
                                             <center>{{ $loop->iteration }}</center>
                                         </td>
                                         <td>{{ $attendance->employee->name ?? '' }}</td>
+                                        <td>{{ $attendance->clock_in }}</td>
+                                        <td>{{ $attendance->clock_out }}</td>
                                         <td>
-                                            @if ($attendance->type == 'clock_in')
-                                                <span>Absen Masuk</span>
-                                            @elseif ($attendance->type == 'forgot_clock_in')
-                                                <span>Lupa Absen Masuk</span>
-                                            @elseif ($attendance->type == 'clock_out')
-                                                <span>Absen Pulang</span>
+                                            @if ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && $attendance->late))
+                                                <span class="badge p-1 bg-danger">Absen Masuk Terlambat</span>
+                                            @elseif ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && !$attendance->late))
+                                                <span class="badge p-1 bg-success">Absen Masuk</span>
+                                            @elseif ($attendance->type == 'forgot_clock_in' || $attendance->type == 'forgot_clock_out')
+                                                <span class="badge p-1 bg-warning">Lupa Absen Masuk</span>
                                             @else
-                                                <span>Lupa Absen Pulang</span>
+                                                <span class="badge p-1 bg-success">Absen Masuk</span>
                                             @endif
                                         </td>
-                                        <td><center>
-                                            <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">
-                                                {{ $attendance->late ? 'Absen Masuk Terlambat' : 'Absen Masuk Tepat Waktu' }}
-                                            </span></center>
+                                        <td>
+                                            <center>
+                                                <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">
+                                                    {{ $attendance->late ? 'Absen Masuk Terlambat' : 'Absen Masuk Tepat Waktu' }}
+                                                </span>
+                                            </center>
                                         </td>
                                         <td>
                                             Tanggal {{ date('d-M-Y', strtotime($attendance->timestamp)) }}<br>
                                             Jam {{ date('H:i:s A', strtotime($attendance->timestamp)) }}
                                         </td>
-                                        <td><center>
-                                            <a href="{{ route('attendance.detail', $attendance->id) }}"
-                                                class="btn btn-sm btn-primary">Detail</a>
-                                                </center>
+                                        <td>
+                                            <center>
+                                                <a href="{{ route('attendance.detail', $attendance->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                                            </center>
                                         </td>
                                     </tr>
                                 @endforeach
