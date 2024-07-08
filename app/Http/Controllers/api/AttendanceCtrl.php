@@ -99,11 +99,11 @@ class AttendanceCtrl extends Controller
                 ->where('type', 'clock_in')
                 ->count();
 
-            if ($absenceIsduplicated >= 1) {
-                $absence->delete();
-                // unlink(public_path('absences/' . $proof_image_name));
-                // unlink(public_path('absences/' . $face_recognition_name));
-            }
+            // if ($absenceIsduplicated >= 1) {
+            //     $absence->delete();
+            //     // unlink(public_path('absences/' . $proof_image_name));
+            //     // unlink(public_path('absences/' . $face_recognition_name));
+            // }
 
 
             return response()->json(['message' => 'Absence recorded successfully'], 201);
