@@ -143,8 +143,8 @@
                                             <center>{{ $loop->iteration }}</center>
                                         </td>
                                         <td>{{ $attendance->employee->name ?? '' }}</td>
-                                        <td>{{ explode(':', $attendance->start_time)[0] . ':' . explode(':', $attendance->start_time)[1] }}</td>
-                                        <td>{{ explode(':', $attendance->end_time)[0] . ':' . explode(':', $attendance->end_time)[1] }}</td>
+                                        <td>{{ $attendance->start_time }}</td>
+                                        <td>{{ $attendance->end_time }}</td>
                                         <td>
                                             @if ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && $attendance->late))
                                                 <span class="badge p-1 bg-danger">Absen Masuk Terlambat</span>
