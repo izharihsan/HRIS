@@ -143,8 +143,8 @@
                                             <center>{{ $loop->iteration }}</center>
                                         </td>
                                         <td>{{ $attendance->employee->name ?? '' }}</td>
-                                        <td>{{ $attendance->clock_in }}</td>
-                                        <td>{{ $attendance->clock_out }}</td>
+                                        <td>{{ explode(':', $attendance->start_time)[0] . ':' . explode(':', $attendance->start_time)[1] }}</td>
+                                        <td>{{ explode(':', $attendance->end_time)[0] . ':' . explode(':', $attendance->end_time)[1] }}</td>
                                         <td>
                                             @if ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && $attendance->late))
                                                 <span class="badge p-1 bg-danger">Absen Masuk Terlambat</span>
@@ -155,17 +155,6 @@
                                             @else
                                                 <span class="badge p-1 bg-success">Absen Masuk</span>
                                             @endif
-                                        </td>
-                                        <td>
-                                            <center>
-                                                <span class="badge p-1 bg-{{ $attendance->late ? 'danger' : 'success' }}">
-                                                    {{ $attendance->late ? 'Absen Masuk Terlambat' : 'Absen Masuk Tepat Waktu' }}
-                                                </span>
-                                            </center>
-                                        </td>
-                                        <td>
-                                            Tanggal {{ date('d-M-Y', strtotime($attendance->timestamp)) }}<br>
-                                            Jam {{ date('H:i:s A', strtotime($attendance->timestamp)) }}
                                         </td>
                                         <td>
                                             <center>
