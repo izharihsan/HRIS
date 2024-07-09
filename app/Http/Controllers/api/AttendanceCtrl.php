@@ -35,39 +35,6 @@ class AttendanceCtrl extends Controller
      */
     public function clock_in(Request $request)
     {
-        try {
-            $validate = $request->validate([
-                'lat' => 'required',
-                'lng' => 'required',
-            ]);
-
-            //save proof image and face recognition image in storage public
-            $proof_image = $request->file('proof_image');
-            $proof_image_name = time() . '.' . $proof_image->getClientOriginalExtension();
-            $proof_image->move(public_path('absences'), $proof_image_name);
-
-            $face_recognition = $request->file('face_recognition');
-            $face_recognition_name = time() . '.' . $face_recognition->getClientOriginalExtension();
-            $face_recognition->move(public_path('absences'), $face_recognition_name);
-
-            $absence = new Absence();
-            $absence->user_id = auth()->user()->id;
-            $absence->type = 'clock_in';
-            $absence->timestamp = Carbon::now();
-            $absence->lat = $request->lat;
-            $absence->lng = $request->lng;
-            $absence->proof_image = $proof_image_name;
-            $absence->face_recognition = $face_recognition_name;
-            $absence->start_time = $request->start_time;
-            $absence->save();
-            return response()->json(['message' => 'Absence recorded successfully'], 201);
-        } catch (\Exception $e) {
-            // logger error
-            // Logger::error($e->getMessage());
-            // write error to log file
-            Log::error($e->getMessage());
-            return response()->json(['message' => 'An error occurred'], 500);
-        }
     }
 
     public function clock_out(Request $request)
