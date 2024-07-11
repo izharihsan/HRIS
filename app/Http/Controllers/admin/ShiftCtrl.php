@@ -125,7 +125,7 @@ class ShiftCtrl extends Controller
 
         if ($shift->branch_id != $request->branch_id) {
             Schedule::where('shift_id', $id)->delete();
-            $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
             foreach ($days as $day) {
                 $schedule = new Schedule();
                 $schedule->shift_id = $shift->id;
