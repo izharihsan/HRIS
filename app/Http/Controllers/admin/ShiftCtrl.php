@@ -31,7 +31,8 @@ class ShiftCtrl extends Controller
             'Rabu' => 3,
             'Kamis' => 4,
             'Jumat' => 5,
-            'Sabtu' => 6
+            'Sabtu' => 6,
+            'Minggu' => 7,
         ];
 
         // Normalize day values and sort schedules
@@ -92,7 +93,7 @@ class ShiftCtrl extends Controller
         ]);
 
         if ($shift = Shift::create($request->all())) {
-            $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
             foreach ($days as $day) {
                 $schedule = new Schedule();
                 $schedule->shift_id = $shift->id;
