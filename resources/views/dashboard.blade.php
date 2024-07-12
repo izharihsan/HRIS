@@ -130,6 +130,7 @@
                                 <tr align="center">
                                     <th>No</th>
                                     <th>Fullname</th>
+                                    <th>Tanggal Absen</th>
                                     <th>Check-In Time</th>
                                     <th>Check-Out Time</th>
                                     <th>Status</th>
@@ -143,9 +144,17 @@
                                             <center>{{ $loop->iteration }}</center>
                                         </td>
                                         <td>{{ $attendance->employee->name ?? '' }}</td>
-                                        <td>{{ $attendance->start_time }}</td>
-                                        <td>{{ $attendance->end_time }}</td>
-                                        <td>
+                                        <td><center>{{ date('d-M-Y', strtotime($attendance->timestamp)) }}</center></td>
+                                        <td><center>
+                                            @if ($attendance->start_time == null)
+                                                <span class="badge p-1 bg-danger">Absen Masuk Terlambat</span>
+                                            @else
+                                                {{ $attendance->start_time }}
+                                            @endif
+                                        </center>
+                                        </td>
+                                        <td><center>{{ $attendance->end_time }}</center></td>
+                                        <td><center>
                                             @if ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && $attendance->late))
                                                 <span class="badge p-1 bg-danger">Absen Masuk Terlambat</span>
                                             @elseif ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && !$attendance->late))
@@ -155,6 +164,7 @@
                                             @else
                                                 <span class="badge p-1 bg-success">Absen Masuk</span>
                                             @endif
+                                        </center>
                                         </td>
                                         <td>
                                             <center>

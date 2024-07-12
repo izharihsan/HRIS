@@ -11,6 +11,7 @@
                         <tr>
                             <th>No</th>
                             <th>Fullname</th>
+                            <th>Tanggal Absen</th>
                             <th>Check-In Time</th>
                             <th>Check-Out Time</th>
                             <th>Status</th>
@@ -21,11 +22,12 @@
                     <tbody>
                         @foreach ($absences as $attendance)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td><center>{{ $loop->iteration }}</center></td>
                                 <td>{{ $attendance->employee->name ?? '' }}</td>
-                                <td>{{ $attendance->start_time }}</td>
-                                <td>{{ $attendance->end_time }}</td>
-                                <td>
+                                <td><center>{{ date('d-M-Y', strtotime($attendance->timestamp)) }}</center></td>
+                                <td><center>{{ $attendance->start_time }}</center></td>
+                                <td><center>{{ $attendance->end_time }}</center></td>
+                                <td><center>
                                     @if ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && $attendance->late))
                                         <span class="badge p-1 bg-danger">Absen Masuk Terlambat</span>
                                     @elseif ($attendance->type == 'clock_in' || ($attendance->type == 'clock_out' && !$attendance->late))
@@ -35,10 +37,11 @@
                                     @else
                                         <span class="badge p-1 bg-success">Absen Masuk</span>
                                     @endif
+                                </center>
                                 </td>
                                 {{-- <td>{{ $attendance->created_at }}</td> --}}
-                                <td>
-                                    <a href="{{ route('attendance.detail', $attendance->id) }}" class="btn btn-sm btn-outline-primary">Detail</a>
+                                <td><center>
+                                    <a href="{{ route('attendance.detail', $attendance->id) }}" class="btn btn-sm btn-outline-primary">Detail</a></center>
                                 </td>
                             </tr>
                         @endforeach
