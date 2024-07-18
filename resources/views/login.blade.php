@@ -1,175 +1,154 @@
-<!doctype html>
-
-<html lang="en" class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('/') }}/" data-template="vertical-menu-template">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Login - Amore</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('/assets') }}/img/favicon/trans.png" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets') }}/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-    <title>{{ env('APP_NAME') }} - Login</title>
+<style>
+    .roboto-thin {
+        font-family: "Roboto", sans-serif;
+        font-weight: 100;
+        font-style: normal;
+    }
 
-    <meta name="description" content="" />
+    .roboto-light {
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+    }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('/') }}/img/favicon/favicon.ico" />
+    .roboto-regular {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&ampdisplay=swap" rel="stylesheet" />
+    .roboto-medium {
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+    }
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/fonts/flag-icons.css" />
+    .roboto-bold {
+        font-family: "Roboto", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+    }
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('/') }}/css/demo.css" />
+    .roboto-black {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+    }
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/libs/node-waves/node-waves.css" />
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/libs/typeahead-js/typeahead.css" />
-    <!-- Vendor -->
-    <link rel="stylesheet"
-        href="{{ asset('/') }}/vendor/libs/@form-validation/form-validation.css" />
+    .roboto-thin-italic {
+        font-family: "Roboto", sans-serif;
+        font-weight: 100;
+        font-style: italic;
+    }
 
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('/') }}/vendor/css/pages/page-auth.css" />
+    .roboto-light-italic {
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        font-style: italic;
+    }
 
-    <!-- Helpers -->
-    <script src="{{ asset('/') }}/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="{{ asset('/') }}/vendor/js/template-customizer.js"></script>
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('/') }}/js/config.js"></script>
-  </head>
+    .roboto-regular-italic {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+    }
 
-  <body>
-    <!-- Content -->
+    .roboto-medium-italic {
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+        font-style: italic;
+    }
 
-    <div class="container-xxl">
-      <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner py-4">
-          <!-- Login -->
-          <div class="card">
-            <div class="card-body">
-              <!-- Logo -->
-              <div class="app-brand justify-content-center mb-4 mt-2">
-                <a href="index.html" class="app-brand-link gap-2">
-                  <span class="app-brand-logo demo">
-                    <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
-                        fill="#7367F0" />
-                      <path
-                        opacity="0.06"
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
-                        fill="#161616" />
-                      <path
-                        opacity="0.06"
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
-                        fill="#161616" />
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
-                        fill="#7367F0" />
-                    </svg>
-                  </span>
-                  <span class="app-brand-text demo text-body fw-bold ms-1">{{ env('APP_NAME') }}</span>
-                </a>
-              </div>
-              <!-- /Logo -->
-              <h4 class="mb-1 pt-2">Welcome to {{ env('APP_NAME') }}! 👋</h4>
-              <p class="mb-4">Please sign-in to your account and start</p>
+    .roboto-bold-italic {
+        font-family: "Roboto", sans-serif;
+        font-weight: 700;
+        font-style: italic;
+    }
 
-              {{-- alert --}}
-              {{-- check if has error --}}
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li> @endforeach
-                    </ul>
+    .roboto-black-italic {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-style: italic;
+    }
+</style>
+
+<body>
+    <!-- <img class="wave" src="img/wave.png"> -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <center><b>{{ $error }}</b></center>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="container">
+        <div class="img">
+            <img src="{{ asset('/assets') }}/img/bg.svg">
+        </div>
+
+
+
+        <div class="login-content">
+            <form id="formAuthentication" class="row g-3" action="{{ route('login_process') }}" method="POST">
+                @csrf
+                <img src="{{ asset('/assets') }}/img/avatar.svg">
+                <h4 class="mb-1 pt-2">Welcome to {{ env('APP_NAME') }} Punya! 👋</h4>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
                     </div>
-                @endif
-
-              <form id="formAuthentication"
-        class="mb-3" action="{{ route('login_process') }}" method="POST">
-    @csrf
-    <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email or username" autofocus />
-    </div>
-    <div class="mb-3 form-password-toggle">
-        <div class="d-flex justify-content-between">
-            <label class="form-label" for="password">Password</label>
-            <a href="auth-forgot-password-basic.html">
-                <small>Forgot Password?</small>
-            </a>
-        </div>
-        <div class="input-group input-group-merge">
-            <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                aria-describedby="password" />
-            <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
-        </div>
-    </div>
-    <div class="mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="remember-me" />
-            <label class="form-check-label" for="remember-me"> Remember Me </label>
+                    <div class="div">
+                        <input id="email" type="text" class="input" placeholder="Masukkan Email" name="email"
+                            value="" required oninvalid="this.setCustomValidity('Silakan isi Email Anda')"
+                            oninput="setCustomValidity('')" autofocus>
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <input id="password" type="password" class="input" placeholder="Masukkan Password"
+                            name="password" value="" required
+                            oninvalid="this.setCustomValidity('Silakan isi Password Anda')"
+                            oninput="setCustomValidity('')">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-danger">Log In</button>
+            </form>
         </div>
     </div>
-    <div class="mb-3">
-        <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-    </div>
-    </form>
-
-    </div>
-    </div>
-    <!-- /Register -->
-    </div>
-    </div>
-    </div>
-
-    <!-- / Content -->
-
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-
-    <script src="{{ asset('/') }}/vendor/libs/jquery/jquery.js"></script>
-    <script src="{{ asset('/') }}/vendor/libs/popper/popper.js"></script>
-    <script src="{{ asset('/') }}/vendor/js/bootstrap.js"></script>
-    <script src="{{ asset('/') }}/vendor/libs/node-waves/node-waves.js"></script>
-    <script src="{{ asset('/') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="{{ asset('/') }}/vendor/libs/hammer/hammer.js"></script>
-    <script src="{{ asset('/') }}/vendor/libs/i18n/i18n.js"></script>
-    <script src="{{ asset('/') }}/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="{{ asset('/') }}/vendor/js/menu.js"></script>
-
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="{{ asset('/') }}/vendor/libs/@form-validation/popular.js"></script>
-    <script src="{{ asset('/') }}/vendor/libs/@form-validation/bootstrap5.js"></script>
-    <script src="{{ asset('/') }}/vendor/libs/@form-validation/auto-focus.js"></script>
-
-    <!-- Main JS -->
-    <script src="{{ asset('/') }}/js/main.js"></script>
-
-    <!-- Page JS -->
-    <script src="{{ asset('/') }}/js/pages-auth.js"></script>
-    </body>
+    <script src="{{ asset('/assets') }}/vendor/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
 
 </html>

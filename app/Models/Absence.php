@@ -10,15 +10,15 @@ class Absence extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'absences';
+    protected $table = 'hr_absences';
 
     public function overtime()
     {
         return $this->hasOne(Overtime::class, 'absence_id', 'id');
     }
 
-    public function user()
+    public function employee()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(Employee::class, 'user_id', 'id');
     }
 }

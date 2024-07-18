@@ -10,7 +10,7 @@ class Schedule extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'schedules';
+    protected $table = 'hr_schedules';
     public $timestamps = false;
 
     public function shift()
@@ -18,8 +18,13 @@ class Schedule extends Model
         return $this->belongsTo(Shift::class, 'shift_id', 'id');
     }
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->user_ids ? User::whereIn('id', explode(',', $this->user_ids))->get() : [];
+    }
+
+    public function getUsersAttribute()
+    {
+        return $this->users();
     }
 }
