@@ -52,6 +52,7 @@ class ShiftCtrl extends Controller
 
     public function schedule_save(Request $request)
     {
+        // dd($request->all());
         // Extract the form data, excluding '_token' and 'shift_id'
         $formData = $request->except('_token', 'shift_id', 'id');
         $shift_id = $request->shift_id;
@@ -60,13 +61,12 @@ class ShiftCtrl extends Controller
         foreach ($formData as $day => $userIdsArray) {
             // Get the index from the day string (assuming day has a pattern like 'Senin_1', 'Selasa_2', etc.)
             $index = array_search($day, array_keys($formData));
-
             // Ensure the index is valid
             if (isset($ids[$index])) {
                 $id = $ids[$index];
 
                 // Find the schedule by shift_id and id
-                $schedule = Schedule::where('id', $id)->first();
+                $schedule = Schedule::where('shift_id', $shift_id)->where('day', $day)->first();
 
                 if ($schedule) {
                     // Update the user_ids column with the new array of user IDs
