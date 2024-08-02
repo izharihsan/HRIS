@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\EmployeeCtrl;
 use App\Http\Controllers\admin\FinanceCtrl;
 use App\Http\Controllers\admin\MasterCutiCtrl;
 use App\Http\Controllers\admin\PerusahaanCtrl;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\admin\RolePermissionCtrl;
 use App\Http\Controllers\admin\ScheduleCtrl;
 use App\Http\Controllers\admin\ShiftCtrl;
@@ -48,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/jabatan', [PerusahaanCtrl::class, 'storeJabatan'])->name('jabatan.store');
     Route::put('/jabatan/{id}', [PerusahaanCtrl::class, 'updateJabatan'])->name('jabatan.update');
     Route::delete('/jabatan/{id}', [PerusahaanCtrl::class, 'destroyJabatan'])->name('jabatan.delete');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
     // EMPLOYEE
     Route::get('/employee', [EmployeeCtrl::class, 'index'])->name('employee.list');

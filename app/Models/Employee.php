@@ -49,6 +49,11 @@ class Employee extends Model
         return $this->hasOne(BankAccount::class, 'employee_id');
     }
 
+    public function divisi()
+    {
+        return $this->hasOne(Divisi::class, 'id', 'divisi_id');
+    }
+
     // handle postgre id increment when insert new data
     public static function boot()
     {
