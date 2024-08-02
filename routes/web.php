@@ -4,7 +4,7 @@ use App\Http\Controllers\admin\EmployeeCtrl;
 use App\Http\Controllers\admin\FinanceCtrl;
 use App\Http\Controllers\admin\MasterCutiCtrl;
 use App\Http\Controllers\admin\PerusahaanCtrl;
-use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\RolePermissionCtrl;
 use App\Http\Controllers\admin\ScheduleCtrl;
 use App\Http\Controllers\admin\ShiftCtrl;
