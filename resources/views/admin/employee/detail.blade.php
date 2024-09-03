@@ -23,7 +23,9 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="bank-tab" data-bs-toggle="tab" href="#bank" role="tab" aria-controls="bank" aria-selected="false">Bank</a>
                         </li>
-
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="approver-tab" data-bs-toggle="tab" href="#approver" role="tab" aria-controls="approver" aria-selected="false">Approver</a>
+                        </li>
                     </ul>
                     <div class="tab-content" id="employeeDetailsTabsContent">
                         <!-- Slip Gaji Tab -->
@@ -183,6 +185,36 @@
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
                         </div>
+
+                        <div class="tab-pane fade" id="approver" role="tabpanel" aria-labelledby="approver-tab">
+                            <div class="d-flex justify-content-between">
+                                <h3>Approver List</h3>
+                                <a href="{{ route('employee.approver.create', $employee->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-plus me-1"></i> New Approver</a>
+                            </div>
+                            <div class="card-datatable table-responsive pt-0 mt-3">
+                                <table class="datatables-basic table cell-border" id="datatables-basic">
+                                    <thead>
+                                        <tr align="center">
+                                            <th width="10%">No</th>
+                                            <th>Nama Approver</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($approvers as $approver)
+                                            <tr>
+                                                <td>{{ $approver->index }}</td>
+                                                <td>{{ $approver->approver->name }}</td>
+                                                <td>
+                                                    <a href="{{ route('employee.approver.edit', $approver->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                                    <a href="{{ route('employee.approver.delete', $approver->id) }}" class="btn btn-sm btn-primary">Hapus</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -278,6 +310,7 @@
                             @endif
                         </li> --}}
                         <li class="list-group-item"><strong>Address:</strong> {{ $employee->alamat }}</li>
+                        <li class="list-group-item"><strong>Gaji Pokok:</strong> Rp {{ number_format($employee->gaji_pokok) }}</li>
                     </ul>
                 </div>
             </div>

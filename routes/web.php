@@ -56,11 +56,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/employee', [EmployeeCtrl::class, 'index'])->name('employee.list');
     Route::get('/employee/create', [EmployeeCtrl::class, 'create'])->name('employee.create');
     Route::post('/employee/store', [EmployeeCtrl::class, 'storeEmployee'])->name('employee.store');
+    Route::get('/employee/import-gaji', [EmployeeCtrl::class, 'employeeImportGaji'])->name('employee.import-gaji');
+    Route::post('/employee/import-gaji', [EmployeeCtrl::class, 'employeeImportGajiStore'])->name('employee.import-gaji.store');
     Route::get('/employee/{id}', [EmployeeCtrl::class, 'show'])->name('employee.detail');
     Route::delete('/employee/{id}', [EmployeeCtrl::class, 'destroy'])->name('employee.delete');
     Route::post('/employee/nonaktifkan/{id}', [EmployeeCtrl::class, 'nonaktifkan'])->name('employee.nonaktifkan');
     Route::post('/employee/aktifkan/{id}', [EmployeeCtrl::class, 'aktifkan'])->name('employee.aktifkan');
     Route::put('/employee/{id}', [EmployeeCtrl::class, 'update'])->name('employee.update');
+    Route::get('/employee/approver/create/{id}', [EmployeeCtrl::class, 'employeeApprover'])->name('employee.approver.create');
+    Route::post('/employee/approver/create/{id}', [EmployeeCtrl::class, 'employeeApproverStore'])->name('employee.approver.store');
+    Route::get('/employee/approver/edit/{id}', [EmployeeCtrl::class, 'employeeApproverEdit'])->name('employee.approver.edit');
+    Route::post('/employee/approver/edit/{id}', [EmployeeCtrl::class, 'employeeApproverUpdate'])->name('employee.approver.update');
+    Route::get('/employee/approver/delete/{id}', [EmployeeCtrl::class, 'employeeApproverDelete'])->name('employee.approver.delete');
 
     // EMPLOYEE DOCUMENT
     Route::post('/employee/document', [EmployeeCtrl::class, 'storeDocument'])->name('employee.document.store');

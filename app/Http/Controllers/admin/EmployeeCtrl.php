@@ -20,6 +20,9 @@ use App\Models\EmployeeWarning;
 use App\Models\EmployeeRewards;
 use App\Models\EmployeePromotion;
 use App\Models\EmployeeResign;
+use App\Models\EmployeeApprover;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeCtrl extends Controller
 {
@@ -36,7 +39,8 @@ class EmployeeCtrl extends Controller
         $documents = EmployeeDocument::where('employee_id', $id)->get();
         $families = EmployeeFamily::where('employee_id', $id)->get();
         $educations = EmployeeEducation::where('employee_id', $id)->get();
-        return view('admin.employee.detail', compact('employee', 'branches', 'documents', 'families', 'educations'));
+        $approvers = EmployeeApprover::where('user_id', $employee->user->id)->orderBy('index')->get();
+        return view('admin.employee.detail', compact('employee', 'branches', 'documents', 'families', 'educations', 'approvers'));
     }
 
     // NOT USED
@@ -531,5 +535,97 @@ class EmployeeCtrl extends Controller
         }
 
         return redirect()->back()->with('success', 'Rekening bank berhasil diatur');
+    }
+
+    public function employeeApprover($id){
+        $data['approvers'] = User::all();
+        $data['employee']  = Employee::find($id);
+
+        return view('admin.employee.create-approver', $data);
+    }
+
+    public function employeeApproverStore(Request $request, $id){
+        $employee = Employee::find($id);
+        $approver = EmployeeApprover::create([
+            'user_id' => $employee->user->id,
+            'approver_id' => $request->approver_id,
+            'index' => $request->index,
+        ]);
+
+        return redirect('/employee/' . $employee->id)->with('success', 'Berhasil menambahkan approver');
+    }
+
+    public function employeeApproverEdit($id){
+        $data['approvers'] = User::all();
+        $data['approver']  = EmployeeApprover::find($id);
+        $data['employee']  = Employee::find($data['approver']->user->employee->id);
+
+        return view('admin.employee.edit-approver', $data);
+    }
+
+    public function employeeApproverUpdate(Request $request, $id){
+        $approver = EmployeeApprover::find($id);
+        $approver->update([
+            'approver_id' => $request->approver_id,
+            'index' => $request->index
+        ]);
+
+        $employee  = Employee::find($approver->user->employee->id);
+
+        return redirect('/employee/' . $employee->id)->with('success', 'Berhasil mengupdate approver');
+    }
+
+    public function employeeApproverDelete($id){
+        $approver = EmployeeApprover::find($id);
+        $approver->delete();
+
+        return redirect()->back()->with('success', 'Berhasil menghapus approver');
+    }
+
+    public function employeeImportGaji(){
+        return view('admin.employee.import-gaji');
+    }
+
+    public function employeeImportGajiStore(Request $request){
+        $file = $request->file('file_gaji');
+
+        // Baca file excel
+        $data = Excel::toArray([], $file)[0];
+
+        // Loop melalui setiap baris data
+        foreach ($data as $row) {
+            $employeeEmail = $row[0];
+            $employeeBankName = $row[1];
+            $employeeBankAccountName = $row[2];
+            $employeeBankAccountNumber = $row[3];
+            $employeeSalary = $row[4];
+
+            // Cari employee_id dari tabel mkr_karyawan
+            $employee = Employee::where('email', $employeeEmail)->first();
+
+            if ($employee) {
+                $bankAccount = BankAccount::where('employee_id', $employee->id)->first();
+                if ($bankAccount != null) {
+                    $bankAccount->update([
+                        'bank_name' => $employeeBankName,
+                        'account_number' => $employeeBankAccountNumber,
+                        'account_name' => $employeeBankAccountName,
+                    ]);
+                } else {
+                    $bankAccount = BankAccount::create([
+                        'employee_id' => $employee->id,
+                        'bank_name' => $employeeBankName,
+                        'account_number' => $employeeBankAccountNumber,
+                        'account_name' => $employeeBankAccountName,
+                    ]);
+                }
+
+                $employee->update([
+                    'gaji_pokok' => $employeeSalary,
+                ]);
+            }
+        }
+
+        return back()->with('success', 'Data gaji berhasil diimpor.');
     }
 }

@@ -5,7 +5,10 @@
         <div class="card p-3">
             <div class="d-flex justify-content-between">
                 <h3>Employee List</h3>
-                <a href="{{ route('employee.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus me-1"></i> New Employee</a>
+                <div>
+                    <a href="{{ route('employee.import-gaji') }}" class="btn btn-primary"><i class="fas fa-download me-1"></i> Import Gaji</a>
+                    <a href="{{ route('employee.create') }}" class="btn btn-primary"><i class="fas fa-plus me-1"></i> New Employee</a>
+                </div>
             </div>
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible mt-3" role="alert">
