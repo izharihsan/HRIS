@@ -115,7 +115,7 @@ class EmployeeCtrl extends Controller
         $request['gaji_pokok'] = str_replace(' ', '', $request['gaji_pokok']);
 
         $nikEmployee   = Employee::where('nik', $request->nik)->first();
-        $telpEmployee  = Employee::where('telp', $request->telp)->first();
+        $telpEmployee  = Employee::where('telpon', $request->telpon)->first();
         $emailEmployee = Employee::where('email', $request->email)->first();
         $npwpEmployee  = Employee::where('npwp', $request->email)->first();
         $bpjsEmployee  = Employee::where('bpjs', $request->email)->first();
@@ -125,11 +125,11 @@ class EmployeeCtrl extends Controller
         } elseif ($telpEmployee != null) {
             return redirect()->back()->with('err', 'No Telpon telah digunakan');
         } elseif ($emailEmployee != null) {
-            return redirect()->back()->with('err', 'Email telah digunakan');
+            return redirect()->back()->with('err', 'Alamat Email telah digunakan');
         } elseif ($npwpEmployee != null) {
-            return redirect()->back()->with('err', 'NPWP Telpon telah digunakan');
+            return redirect()->back()->with('err', 'No NPWP telah digunakan');
         } elseif ($bpjsEmployee != null) {
-            return redirect()->back()->with('err', 'BPJS Telpon telah digunakan');
+            return redirect()->back()->with('err', 'No BPJS telah digunakan');
         }
 
         $employee = Employee::create($request->except('image', 'password', '_token'));
