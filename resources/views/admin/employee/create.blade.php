@@ -14,6 +14,15 @@
                 </div>
             @endif
 
+            @if (session('err'))
+                <div class="alert alert-danger alert-dismissible mt-3" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert-message">
+                        {{ session('err') }}
+                    </div>
+                </div>
+            @endif
+
             {{-- Display employee details using the $employee variable --}}
             <form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -34,7 +43,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="nik" class="form-label">NIK</label>
-                            <input type="number" class="form-control" id="nik" name="nik">
+                            <input type="number" class="form-control" id="nik" name="nik" oninput="validateLengthNIK(this)">
                         </div>
                     </div>
 
@@ -91,11 +100,11 @@
                         {{-- npwp and bpjs --}}
                         <div class="col-md-4">
                             <label for="npwp" class="form-label">NPWP</label>
-                            <input type="text" class="form-control" id="npwp" name="npwp">
+                            <input type="text" class="form-control" id="npwp" name="npwp" placeholder="00.000.000.0-000.000" oninput="formatNPWP(this)">
                         </div>
                         <div class="col-md-4">
                             <label for="bpjs" class="form-label">BPJS</label>
-                            <input type="text" class="form-control" id="bpjs" name="bpjs">
+                            <input type="text" class="form-control" id="bpjs" name="bpjs" oninput="validateLengthBPJS(this)">
                         </div>
                         <div class="col-md-4">
                             <label for="gaji_pokok" class="form-label">Gaji Pokok</label>
@@ -171,6 +180,57 @@
         </div>
 
         <script>
+            function validateLengthNIK(input) {
+                // Convert the number to a string to check its length
+                const value = input.value;
+                const maxLength = 16; // Set your desired length here
+
+                // If the length of the value exceeds the maxLength, truncate it
+                if (value.length > maxLength) {
+                    input.value = value.slice(0, maxLength);
+                }
+            }
+
+            function validateLengthBPJS(input) {
+                // Convert the number to a string to check its length
+                const value = input.value;
+                const maxLength = 13; // Set your desired length here
+
+                // If the length of the value exceeds the maxLength, truncate it
+                if (value.length > maxLength) {
+                    input.value = value.slice(0, maxLength);
+                }
+            }
+
+            function formatNPWP(input) {
+                // Remove all non-numeric characters
+                let value = input.value.replace(/\D/g, '');
+
+                // Apply the NPWP format: 12.345.678.9-012.000
+                if (value.length > 15) {
+                    value = value.slice(0, 15);
+                }
+
+                // Split the value into parts based on the NPWP format
+                const part1 = value.slice(0, 2);
+                const part2 = value.slice(2, 5);
+                const part3 = value.slice(5, 8);
+                const part4 = value.slice(8, 9);
+                const part5 = value.slice(9, 12);
+                const part6 = value.slice(12, 15);
+
+                // Combine parts with formatting
+                let formatted = '';
+                if (part1) formatted += part1 + '.';
+                if (part2) formatted += part2 + '.';
+                if (part3) formatted += part3 + '.';
+                if (part4) formatted += part4 + '-';
+                if (part5) formatted += part5 + '.';
+                if (part6) formatted += part6;
+
+                input.value = formatted;
+            }
+
             // handle input rupiah with Intl Number Format
             const rupiah = document.querySelector('#gaji_pokok');
             rupiah.addEventListener('keyup', function(e) {
